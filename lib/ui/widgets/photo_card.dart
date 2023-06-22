@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:photo_app/domain/photo.dart';
 import 'package:photo_app/res/app_colors.dart';
+import 'package:photo_app/res/app_strings.dart';
 import 'package:photo_app/res/app_text_styles.dart';
 
 /// Виджет карточки фотографии.
@@ -54,8 +55,10 @@ class PhotoCard extends StatelessWidget {
                   photo.author,
                   style: AppTextStyles.cardTitleTextStyle,
                 ),
-                Text('${photo.likes} likes',
-                    style: AppTextStyles.cardSubtitleTextStyle),
+                Text(
+                  '${photo.likes} ${AppStrings.likes}',
+                  style: AppTextStyles.cardSubtitleTextStyle,
+                ),
                 const SizedBox(
                   height: 10,
                 ),

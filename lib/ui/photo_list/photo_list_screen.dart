@@ -1,6 +1,7 @@
 import 'package:elementary/elementary.dart';
 import 'package:flutter/material.dart';
 import 'package:photo_app/domain/photo.dart';
+import 'package:photo_app/res/app_strings.dart';
 import 'package:photo_app/res/app_text_styles.dart';
 import 'package:photo_app/ui/photo_list/photo_list_wm.dart';
 import 'package:photo_app/ui/widgets/photo_card.dart';
@@ -100,7 +101,7 @@ class _AppSliverPersistentHeaderDelegate
                   shrinkOffset / maxExtent,
                 )!,
                 child: Text(
-                  'Photos',
+                  AppStrings.photos,
                   style: TextStyle.lerp(
                     AppTextStyles.expandedAppbarTextStyle,
                     AppTextStyles.collapsedAppbarTextStyle,
