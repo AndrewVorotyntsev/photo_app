@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:photo_app/ui/photo_list/photo_list_model.dart';
 import 'package:photo_app/ui/photo_list/photo_list_screen.dart';
 
+// TODO: impement
 /// Абстракция Widget Model
 abstract class IPhotoWidgetModel extends IWidgetModel {}
 

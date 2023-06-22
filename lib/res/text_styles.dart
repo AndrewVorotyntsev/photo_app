@@ -1,27 +1,27 @@
 import 'package:flutter/material.dart';
 
-final TextStyle expandedAppbarTextStyle = TextStyle(
+const TextStyle expandedAppbarTextStyle = TextStyle(
   fontFamily: 'Manrope',
   fontWeight: FontWeight.w700,
   fontSize: 24,
   color: Colors.black,
 );
 
-final TextStyle collapsedAppbarTextStyle = TextStyle(
+const TextStyle collapsedAppbarTextStyle = TextStyle(
   fontFamily: 'Manrope',
   fontWeight: FontWeight.w700,
   fontSize: 20,
   color: Colors.black,
 );
 
-final TextStyle cardTitleTextStyle = TextStyle(
+const TextStyle cardTitleTextStyle = TextStyle(
   fontFamily: 'Manrope',
   fontWeight: FontWeight.w700,
   fontSize: 12,
   color: Colors.white,
 );
 
-final TextStyle cardSubtitleTextStyle = TextStyle(
+const TextStyle cardSubtitleTextStyle = TextStyle(
   fontFamily: 'Manrope',
   fontWeight: FontWeight.w400,
   fontSize: 10,

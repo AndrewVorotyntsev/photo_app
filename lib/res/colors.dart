@@ -1,3 +1,3 @@
 import 'package:flutter/material.dart';
 
-final Color shadowColor = Color(0xC0C0A6).withOpacity(0.7);
+final Color shadowColor = const Color(0xFFc0c0a6).withOpacity(0.7);

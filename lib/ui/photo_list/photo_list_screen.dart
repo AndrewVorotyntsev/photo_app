@@ -21,7 +21,7 @@ class PhotoScreen extends ElementaryWidget<IPhotoWidgetModel> {
           slivers: [
             SliverPersistentHeader(
               pinned: true,
-              delegate: AppSliverPersistentHeaderDelegate(),
+              delegate: _AppSliverPersistentHeaderDelegate(),
             ),
             SliverPadding(
               padding: const EdgeInsets.only(
@@ -32,7 +32,10 @@ class PhotoScreen extends ElementaryWidget<IPhotoWidgetModel> {
               ),
               sliver: SliverGrid(
                 delegate: SliverChildBuilderDelegate(
-                  (BuildContext context, int index) {
+                  (
+                    BuildContext context,
+                    int index,
+                  ) {
                     return PhotoCard(
                       // TODO: поставлять данные с сервера
                       photo: Photo(
@@ -62,12 +65,14 @@ class PhotoScreen extends ElementaryWidget<IPhotoWidgetModel> {
   }
 }
 
-class AppSliverPersistentHeaderDelegate extends SliverPersistentHeaderDelegate {
+class _AppSliverPersistentHeaderDelegate
+    extends SliverPersistentHeaderDelegate {
   @override
   double get maxExtent => 131;
 
   @override
   double get minExtent => 88;
+
   @override
   Widget build(
     BuildContext context,
