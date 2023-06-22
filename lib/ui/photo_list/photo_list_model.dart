@@ -1,8 +1,8 @@
 import 'package:elementary/elementary.dart';
 
-/// Имплементация Elementary модели к Экрану списка фотографий
-class PhotoScreenModel extends ElementaryModel {
-  PhotoScreenModel();
+/// Имплементация Elementary модели к Экрану списка фотографий.
+class PhotoListModel extends ElementaryModel {
+  PhotoListModel();
 
-  // TODO: impement
+  // TODO(AndrewVorotyntsev): impement.
 }

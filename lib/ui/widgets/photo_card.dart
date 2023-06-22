@@ -3,15 +3,15 @@ import 'package:photo_app/domain/photo.dart';
 import 'package:photo_app/res/colors.dart';
 import 'package:photo_app/res/text_styles.dart';
 
-/// Виджет карточки фотографии
+/// Виджет карточки фотографии.
 class PhotoCard extends StatelessWidget {
   final Photo photo;
   final VoidCallback? onCardTap;
 
   const PhotoCard({
-    super.key,
     required this.photo,
     this.onCardTap,
+    super.key,
   });
 
   @override
@@ -28,7 +28,6 @@ class PhotoCard extends StatelessWidget {
         boxShadow: [
           BoxShadow(
             color: shadowColor,
-            spreadRadius: 0,
             blurRadius: 32,
             offset: const Offset(0, 8),
           ),

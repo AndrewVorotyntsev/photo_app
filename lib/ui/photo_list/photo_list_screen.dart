@@ -5,15 +5,15 @@ import 'package:photo_app/res/text_styles.dart';
 import 'package:photo_app/ui/photo_list/photo_list_wm.dart';
 import 'package:photo_app/ui/widgets/photo_card.dart';
 
-/// Экран списка фотографий
-class PhotoScreen extends ElementaryWidget<IPhotoWidgetModel> {
-  const PhotoScreen({
+/// Экран списка фотографий.
+class PhotoListScreen extends ElementaryWidget<IPhotoListWM> {
+  const PhotoListScreen({
     Key? key,
     WidgetModelFactory wmFactory = defaultAppWidgetModelFactory,
   }) : super(wmFactory, key: key);
 
   @override
-  Widget build(IPhotoWidgetModel wm) {
+  Widget build(IPhotoListWM wm) {
     return Scaffold(
       backgroundColor: Colors.white,
       body: SafeArea(
@@ -33,11 +33,11 @@ class PhotoScreen extends ElementaryWidget<IPhotoWidgetModel> {
               sliver: SliverGrid(
                 delegate: SliverChildBuilderDelegate(
                   (
-                    BuildContext context,
-                    int index,
+                    context,
+                    index,
                   ) {
                     return PhotoCard(
-                      // TODO: поставлять данные с сервера
+                      // TODO(AndrewVorotyntsev): поставлять данные с сервера.
                       photo: Photo(
                         imageUrl:
                             'https://images.unsplash.com/photo-1682687981715-fa2ff72bd87d?crop=entropy&cs=srgb&fm=jpg&ixid=M3wzMzE5MXwxfDF8YWxsfDF8fHx8fHwyfHwxNjg3MzQxODU2fA&ixlib=rb-4.0.3&q=85',
@@ -45,7 +45,7 @@ class PhotoScreen extends ElementaryWidget<IPhotoWidgetModel> {
                         likes: 12,
                       ),
                       onCardTap: () {
-                        // TODO: открыть экран деталей фото
+                        // TODO(AndrewVorotyntsev): открыть экран деталей фото.
                       },
                     );
                   },
@@ -100,7 +100,7 @@ class _AppSliverPersistentHeaderDelegate
                   shrinkOffset / maxExtent,
                 )!,
                 child: Text(
-                  "Photos",
+                  'Photos',
                   style: TextStyle.lerp(
                     expandedAppbarTextStyle,
                     collapsedAppbarTextStyle,

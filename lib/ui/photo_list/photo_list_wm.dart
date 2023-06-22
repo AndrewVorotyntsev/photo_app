@@ -3,18 +3,18 @@ import 'package:flutter/material.dart';
 import 'package:photo_app/ui/photo_list/photo_list_model.dart';
 import 'package:photo_app/ui/photo_list/photo_list_screen.dart';
 
-// TODO: impement
-/// Абстракция Widget Model
-abstract class IPhotoWidgetModel extends IWidgetModel {}
-
-PhotoWidgetModel defaultAppWidgetModelFactory(BuildContext context) {
-  return PhotoWidgetModel(
-    PhotoScreenModel(),
-  );
+/// Имплементация и реализация Виджет модели.
+class PhotoListWM extends WidgetModel<PhotoListScreen, PhotoListModel>
+    implements IPhotoListWM {
+  PhotoListWM(PhotoListModel model) : super(model);
 }
 
-/// Имплементация и реализация Виджет модели [IHomeUserProfileWidgetModel]
-class PhotoWidgetModel extends WidgetModel<PhotoScreen, PhotoScreenModel>
-    implements IPhotoWidgetModel {
-  PhotoWidgetModel(PhotoScreenModel model) : super(model);
+// TODO(AndrewVorotyntsev): impement.
+/// Абстракция Widget Model.
+abstract class IPhotoListWM extends IWidgetModel {}
+
+PhotoListWM defaultAppWidgetModelFactory(BuildContext _) {
+  return PhotoListWM(
+    PhotoListModel(),
+  );
 }
