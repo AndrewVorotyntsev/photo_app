@@ -81,7 +81,7 @@ class _AppSliverPersistentHeaderDelegate
   ) {
     return Container(
       height: maxExtent,
-      color: Colors.white.withOpacity(0.75),
+      color: Colors.white.withOpacity(0.95),
       child: LayoutBuilder(
         builder: (context, constraints) => Stack(
           children: [
