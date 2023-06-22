@@ -1,6 +1,7 @@
 import 'package:elementary/elementary.dart';
 import 'package:flutter/material.dart';
 import 'package:photo_app/domain/photo.dart';
+import 'package:photo_app/res/app_colors.dart';
 import 'package:photo_app/res/app_strings.dart';
 import 'package:photo_app/res/app_text_styles.dart';
 import 'package:photo_app/ui/photo_list/photo_list_wm.dart';
@@ -16,7 +17,7 @@ class PhotoListScreen extends ElementaryWidget<IPhotoListWM> {
   @override
   Widget build(IPhotoListWM wm) {
     return Scaffold(
-      backgroundColor: Colors.white,
+      backgroundColor: AppColors.scaffoldColor,
       body: SafeArea(
         child: CustomScrollView(
           slivers: [
@@ -82,7 +83,7 @@ class _AppSliverPersistentHeaderDelegate
   ) {
     return Container(
       height: maxExtent,
-      color: Colors.white.withOpacity(0.95),
+      color: AppColors.headerColor,
       child: LayoutBuilder(
         builder: (context, constraints) => Stack(
           children: [

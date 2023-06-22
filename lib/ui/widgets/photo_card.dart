@@ -31,7 +31,7 @@ class PhotoCard extends StatelessWidget {
             offset: const Offset(0, 8),
           ),
         ],
-        color: Colors.white,
+        color: AppColors.cardColor,
         image: DecorationImage(
           image: NetworkImage(photo.imageUrl),
           fit: BoxFit.fill,
