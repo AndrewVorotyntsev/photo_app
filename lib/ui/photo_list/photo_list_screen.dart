@@ -1,4 +1,5 @@
 import 'package:elementary/elementary.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:photo_app/domain/photo.dart';
 import 'package:photo_app/res/app_colors.dart';
@@ -19,48 +20,67 @@ class PhotoListScreen extends ElementaryWidget<IPhotoListWM> {
     return Scaffold(
       backgroundColor: AppColors.scaffoldColor,
       body: SafeArea(
-        child: CustomScrollView(
-          slivers: [
-            SliverPersistentHeader(
-              pinned: true,
-              delegate: _AppSliverPersistentHeaderDelegate(),
-            ),
-            SliverPadding(
-              padding: const EdgeInsets.only(
-                left: 27,
-                right: 26,
-                bottom: 17,
-                top: 10,
-              ),
-              sliver: SliverGrid(
-                delegate: SliverChildBuilderDelegate(
-                  (
-                    context,
-                    index,
-                  ) {
-                    return PhotoCard(
-                      // TODO(AndrewVorotyntsev): поставлять данные с сервера.
-                      photo: Photo(
-                        imageUrl:
-                            'https://images.unsplash.com/photo-1682687981715-fa2ff72bd87d?crop=entropy&cs=srgb&fm=jpg&ixid=M3wzMzE5MXwxfDF8YWxsfDF8fHx8fHwyfHwxNjg3MzQxODU2fA&ixlib=rb-4.0.3&q=85',
-                        author: 'Author',
-                        likes: 12,
+        child: EntityStateNotifierBuilder<List<Photo>>(
+          listenableEntityState: wm.photoListState,
+          builder: (context, list) {
+            if (list == null) {
+              return const SizedBox.shrink();
+            }
+            if (list.isEmpty) {
+              return const SizedBox.shrink();
+            }
+            return Stack(
+              alignment: Alignment.bottomCenter,
+              children: [
+                CustomScrollView(
+                  controller: wm.photoScrollController,
+                  physics: const BouncingScrollPhysics(),
+                  slivers: [
+                    SliverPersistentHeader(
+                      pinned: true,
+                      delegate: _AppSliverPersistentHeaderDelegate(),
+                    ),
+                    SliverPadding(
+                      padding: const EdgeInsets.only(
+                        left: 27,
+                        right: 26,
+                        bottom: 17,
+                        top: 10,
                       ),
-                      onCardTap: () {
-                        // TODO(AndrewVorotyntsev): открыть экран деталей фото.
-                      },
-                    );
-                  },
-                  childCount: 20,
+                      sliver: SliverGrid(
+                        delegate: SliverChildBuilderDelegate(
+                          (
+                            context,
+                            index,
+                          ) {
+                            return PhotoCard(
+                              // TODO(AndrewVorotyntsev): поставлять данные с сервера.
+                              photo: list[index],
+                              onCardTap: () {
+                                // TODO(AndrewVorotyntsev): открыть экран деталей фото.
+                              },
+                            );
+                          },
+                          childCount: list.length,
+                        ),
+                        gridDelegate:
+                            const SliverGridDelegateWithFixedCrossAxisCount(
+                          crossAxisCount: 2,
+                          mainAxisSpacing: 24,
+                          crossAxisSpacing: 24,
+                        ),
+                      ),
+                    ),
+                  ],
                 ),
-                gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                  crossAxisCount: 2,
-                  mainAxisSpacing: 24,
-                  crossAxisSpacing: 24,
-                ),
-              ),
-            ),
-          ],
+                if (wm.photoListState.value?.isLoading ?? false)
+                  const Positioned(
+                    bottom: 25,
+                    child: CupertinoActivityIndicator(radius: 11),
+                  ),
+              ],
+            );
+          },
         ),
       ),
     );
