@@ -159,7 +159,7 @@ packages:
     source: sdk
     version: "0.0.0"
   flutter_lints:
-    dependency: "direct dev"
+    dependency: transitive
     description:
       name: flutter_lints
       sha256: aeb0b80a8b3709709c9cc496cdc027c5b3216796bc0af0ce1007eaf24464fd4c
@@ -345,7 +345,7 @@ packages:
     source: hosted
     version: "1.2.0"
   surf_lint_rules:
-    dependency: "direct main"
+    dependency: "direct dev"
     description:
       name: surf_lint_rules
       sha256: "0465c70586a137db13a1e6afb1bd10b48a95c90fe29fdcee15a96c9f70fe2b19"
