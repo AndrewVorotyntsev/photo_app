@@ -26,7 +26,7 @@ class PhotoCard extends StatelessWidget {
         ),
         boxShadow: [
           BoxShadow(
-            color: AppColors.shadowColor,
+            color: photo.shadowColor,
             blurRadius: 32,
             offset: const Offset(0, 8),
           ),

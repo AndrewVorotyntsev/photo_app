@@ -55,6 +55,8 @@ class PhotoListWM extends WidgetModel<PhotoListScreen, PhotoListModel>
             'https://images.unsplash.com/photo-1687392946857-96c2b7f94b0d?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3wzMzE5MXwwfDF8YWxsfDJ8fHx8fHwyfHwxNjg3NDM2MjQ4fA&ixlib=rb-4.0.3&q=80&w=400',
         author: 'Author$index',
         likes: index,
+        shadowColor: const Color(0xFF262673).withOpacity(0.7),
+        blurHash: 'LC7-g_NzImwHS#aHxJb|MtkanMs?',
       ),
     );
 

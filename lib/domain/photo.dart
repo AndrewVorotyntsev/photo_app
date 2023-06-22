@@ -1,3 +1,5 @@
+import 'package:flutter/material.dart';
+
 /// Доменная модель фотографии.
 class Photo {
   /// Сссылка на изображение.
@@ -9,9 +11,15 @@ class Photo {
   /// Количество лайков.
   final int likes;
 
+  final Color shadowColor;
+
+  final String blurHash;
+
   Photo({
     required this.imageUrl,
     required this.author,
     required this.likes,
+    required this.shadowColor,
+    required this.blurHash,
   });
 }
