@@ -18,8 +18,6 @@ class PhotoCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: 158,
-      width: 158,
       decoration: BoxDecoration(
         borderRadius: const BorderRadius.all(
           Radius.circular(
