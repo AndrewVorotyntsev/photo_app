@@ -1,9 +1,16 @@
 import 'package:flutter/material.dart';
 
-final TextStyle appbarTextStyle = TextStyle(
+final TextStyle expandedAppbarTextStyle = TextStyle(
   fontFamily: 'Manrope',
   fontWeight: FontWeight.w700,
   fontSize: 24,
+  color: Colors.black,
+);
+
+final TextStyle collapsedAppbarTextStyle = TextStyle(
+  fontFamily: 'Manrope',
+  fontWeight: FontWeight.w700,
+  fontSize: 20,
   color: Colors.black,
 );
 

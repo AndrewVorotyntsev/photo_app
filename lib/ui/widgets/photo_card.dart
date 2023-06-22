@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:photo_app/domain/image.dart';
+import 'package:photo_app/domain/photo.dart';
 import 'package:photo_app/res/colors.dart';
 import 'package:photo_app/res/text_styles.dart';
 
@@ -20,7 +20,7 @@ class PhotoCard extends StatelessWidget {
       height: 158,
       width: 158,
       decoration: BoxDecoration(
-        borderRadius: BorderRadius.all(
+        borderRadius: const BorderRadius.all(
           Radius.circular(
             20,
           ),
@@ -46,7 +46,7 @@ class PhotoCard extends StatelessWidget {
         child: InkWell(
           onTap: onCardTap,
           child: Padding(
-            padding: EdgeInsets.only(left: 16),
+            padding: const EdgeInsets.only(left: 16),
             child: Column(
               mainAxisAlignment: MainAxisAlignment.end,
               crossAxisAlignment: CrossAxisAlignment.start,
@@ -56,7 +56,7 @@ class PhotoCard extends StatelessWidget {
                   style: cardTitleTextStyle,
                 ),
                 Text('${photo.likes} likes', style: cardSubtitleTextStyle),
-                SizedBox(
+                const SizedBox(
                   height: 10,
                 )
               ],
