@@ -1,6 +1,7 @@
 import 'package:elementary/elementary.dart';
 import 'package:flutter/material.dart';
 import 'package:photo_app/domain/photo.dart';
+import 'package:photo_app/ui/photo_details/photo_details_screen.dart';
 import 'package:photo_app/ui/photo_list/photo_list_model.dart';
 import 'package:photo_app/ui/photo_list/photo_list_screen.dart';
 
@@ -30,8 +31,8 @@ class PhotoListWM extends WidgetModel<PhotoListScreen, PhotoListModel>
   }
 
   @override
-  void onPhotoCardTap(int id) {
-    // TODO(AndrewVorotyntsev): переход к деталям фото.
+  void onPhotoCardTap(Photo photo) {
+    Navigator.of(context).push(PhotoDetailsScreenRoute(photo: photo));
   }
 
   /// Обработчик скролла списка фото.
@@ -77,7 +78,7 @@ abstract class IPhotoListWM extends IWidgetModel {
   ListenableState<EntityState<List<Photo>>> get photoListState;
 
   /// Обработчик нажатия на карточку с фото.
-  void onPhotoCardTap(int id);
+  void onPhotoCardTap(Photo photo);
 }
 
 PhotoListWM defaultAppWidgetModelFactory(BuildContext _) {
