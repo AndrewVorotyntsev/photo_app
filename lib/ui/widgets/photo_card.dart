@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:photo_app/domain/photo.dart';
-import 'package:photo_app/res/colors.dart';
+import 'package:photo_app/res/app_colors.dart';
 import 'package:photo_app/res/text_styles.dart';
 
 /// Виджет карточки фотографии.
@@ -27,7 +27,7 @@ class PhotoCard extends StatelessWidget {
         ),
         boxShadow: [
           BoxShadow(
-            color: shadowColor,
+            color: AppColors.shadowColor,
             blurRadius: 32,
             offset: const Offset(0, 8),
           ),
