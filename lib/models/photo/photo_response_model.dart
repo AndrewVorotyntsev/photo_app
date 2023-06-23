@@ -4,21 +4,21 @@ part 'photo_response_model.g.dart';
 
 @JsonSerializable()
 class PhotoResponseModel {
-  final String? imageUrl;
+  final ImageResponseModel? urls;
 
-  final String? author;
+  final AuthorResponseModel? user;
 
   final int? likes;
 
-  final String? shadowColor;
+  final String? color;
 
   final String? blurHash;
 
   PhotoResponseModel({
-    this.imageUrl,
-    this.author,
+    this.urls,
+    this.user,
     this.likes,
-    this.shadowColor,
+    this.color,
     this.blurHash,
   });
 
@@ -28,5 +28,39 @@ class PhotoResponseModel {
 
   Map<String, dynamic> toJson() {
     return _$PhotoResponseModelToJson(this);
+  }
+}
+
+@JsonSerializable()
+class ImageResponseModel {
+  final String? regular;
+
+  ImageResponseModel({
+    this.regular,
+  });
+
+  factory ImageResponseModel.fromJson(Map<String, dynamic> json) {
+    return _$ImageResponseModelFromJson(json);
+  }
+
+  Map<String, dynamic> toJson() {
+    return _$ImageResponseModelToJson(this);
+  }
+}
+
+@JsonSerializable()
+class AuthorResponseModel {
+  final String? username;
+
+  AuthorResponseModel({
+    this.username,
+  });
+
+  factory AuthorResponseModel.fromJson(Map<String, dynamic> json) {
+    return _$AuthorResponseModelFromJson(json);
+  }
+
+  Map<String, dynamic> toJson() {
+    return _$AuthorResponseModelToJson(this);
   }
 }
