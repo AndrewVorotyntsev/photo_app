@@ -1,7 +1,7 @@
 import 'package:elementary/elementary.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:photo_app/domain/photo.dart';
+import 'package:photo_app/domain/photo_dto.dart';
 import 'package:photo_app/res/app_colors.dart';
 import 'package:photo_app/res/app_strings.dart';
 import 'package:photo_app/res/app_text_styles.dart';
@@ -20,14 +20,18 @@ class PhotoListScreen extends ElementaryWidget<IPhotoListWM> {
     return Scaffold(
       backgroundColor: AppColors.scaffoldColor,
       body: SafeArea(
-        child: EntityStateNotifierBuilder<List<Photo>>(
+        child: EntityStateNotifierBuilder<List<PhotoDto>>(
           listenableEntityState: wm.photoListState,
           builder: (context, list) {
             if (list == null) {
-              return const SizedBox.shrink();
+              return const Center(
+                child: CupertinoActivityIndicator(radius: 11),
+              );
             }
             if (list.isEmpty) {
-              return const SizedBox.shrink();
+              return const Center(
+                child: CupertinoActivityIndicator(radius: 11),
+              );
             }
             return Stack(
               alignment: Alignment.bottomCenter,

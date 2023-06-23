@@ -1,8 +1,8 @@
-import 'package:photo_app/domain/photo.dart';
+import 'package:photo_app/domain/photo_dto.dart';
 import 'package:photo_app/models/photo/photo_response_model.dart';
 import 'package:photo_app/utils/color_util.dart';
 
-Photo? mapPhoto(PhotoResponseModel response) {
+PhotoDto? mapPhoto(PhotoResponseModel response) {
   final imageUrl = response.urls?.regular;
   final author = response.user?.username;
   final likes = response.likes;
@@ -12,7 +12,7 @@ Photo? mapPhoto(PhotoResponseModel response) {
   if (imageUrl != null && author != null && likes != null && shadow != null) {
     final shadowColor = ColorUtil.fromHex(shadow);
 
-    return Photo(
+    return PhotoDto(
       imageUrl: imageUrl,
       author: author,
       likes: likes,
@@ -24,8 +24,8 @@ Photo? mapPhoto(PhotoResponseModel response) {
   }
 }
 
-List<Photo> mapListPhoto(List<PhotoResponseModel> response) {
-  final photoList = List<Photo>.empty(growable: true);
+List<PhotoDto> mapListPhoto(List<PhotoResponseModel> response) {
+  final photoList = List<PhotoDto>.empty(growable: true);
 
   for (final photoResponse in response) {
     final photo = mapPhoto(photoResponse);

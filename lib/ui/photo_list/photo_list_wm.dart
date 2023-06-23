@@ -1,7 +1,7 @@
 import 'package:elementary/elementary.dart';
 import 'package:flutter/material.dart';
 import 'package:get_it/get_it.dart';
-import 'package:photo_app/domain/photo.dart';
+import 'package:photo_app/domain/photo_dto.dart';
 import 'package:photo_app/interactors/photo/photo_interactor.dart';
 import 'package:photo_app/ui/photo_details/photo_details_screen.dart';
 import 'package:photo_app/ui/photo_list/photo_list_model.dart';
@@ -11,7 +11,7 @@ import 'package:photo_app/ui/photo_list/photo_list_screen.dart';
 class PhotoListWM extends WidgetModel<PhotoListScreen, PhotoListModel>
     implements IPhotoListWM {
   /// Сущность хранящая список фото.
-  final _photoListEntity = EntityStateNotifier<List<Photo>>();
+  final _photoListEntity = EntityStateNotifier<List<PhotoDto>>();
 
   /// Контроллер для списка фото.
   @override
@@ -19,7 +19,7 @@ class PhotoListWM extends WidgetModel<PhotoListScreen, PhotoListModel>
 
   /// Состояние списка фото.
   @override
-  ListenableState<EntityState<List<Photo>>> get photoListState =>
+  ListenableState<EntityState<List<PhotoDto>>> get photoListState =>
       _photoListEntity;
 
   bool _isTotalLoaded = false;
@@ -37,7 +37,13 @@ class PhotoListWM extends WidgetModel<PhotoListScreen, PhotoListModel>
   }
 
   @override
-  void onPhotoCardTap(Photo photo) {
+  void dispose() {
+    photoScrollController.dispose();
+    super.dispose();
+  }
+
+  @override
+  void onPhotoCardTap(PhotoDto photo) {
     Navigator.of(context).push(PhotoDetailsScreenRoute(photo: photo));
   }
 
@@ -60,7 +66,7 @@ class PhotoListWM extends WidgetModel<PhotoListScreen, PhotoListModel>
       if (newPhotos.isEmpty) {
         _isTotalLoaded = true;
       } else {
-        final newList = List<Photo>.from(previousData)..addAll(newPhotos);
+        final newList = List<PhotoDto>.from(previousData)..addAll(newPhotos);
         _photoListEntity.content(newList);
         _currentPage++;
       }
@@ -76,10 +82,10 @@ abstract class IPhotoListWM extends IWidgetModel {
   ScrollController get photoScrollController;
 
   /// Состояние списка фото.
-  ListenableState<EntityState<List<Photo>>> get photoListState;
+  ListenableState<EntityState<List<PhotoDto>>> get photoListState;
 
   /// Обработчик нажатия на карточку с фото.
-  void onPhotoCardTap(Photo photo);
+  void onPhotoCardTap(PhotoDto photo);
 }
 
 PhotoListWM defaultAppWidgetModelFactory(BuildContext _) {

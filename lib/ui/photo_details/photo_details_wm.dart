@@ -1,6 +1,6 @@
 import 'package:elementary/elementary.dart';
 import 'package:flutter/material.dart';
-import 'package:photo_app/domain/photo.dart';
+import 'package:photo_app/domain/photo_dto.dart';
 import 'package:photo_app/ui/photo_details/photo_details_model.dart';
 import 'package:photo_app/ui/photo_details/photo_details_screen.dart';
 
@@ -9,7 +9,10 @@ class PhotoDetailsWM extends WidgetModel<PhotoDetailsScreen, PhotoDetailsModel>
     implements IPhotoDetailsWidgetModel {
   /// Данные о фото для отображения.
   @override
-  Photo get photo => model.photo;
+  PhotoDto get photo => model.photo;
+
+  @override
+  int get likes => model.photo.likes;
 
   PhotoDetailsWM(PhotoDetailsModel model) : super(model);
 
@@ -22,7 +25,10 @@ class PhotoDetailsWM extends WidgetModel<PhotoDetailsScreen, PhotoDetailsModel>
 
 abstract class IPhotoDetailsWidgetModel extends IWidgetModel {
   /// Данные о фото для отображения.
-  Photo get photo;
+  PhotoDto get photo;
+
+  /// Кол-во лайков
+  int get likes;
 
   /// Действие по нажатию назад.
   void onBackTap();
@@ -30,7 +36,7 @@ abstract class IPhotoDetailsWidgetModel extends IWidgetModel {
 
 PhotoDetailsWM defaultAppWidgetModelFactory(
   BuildContext _,
-  Photo photo,
+  PhotoDto photo,
 ) {
   return PhotoDetailsWM(
     PhotoDetailsModel(
