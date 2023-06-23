@@ -9,7 +9,7 @@ import 'package:photo_app/ui/photo_list/photo_list_screen.dart';
 class PhotoListWM extends WidgetModel<PhotoListScreen, PhotoListModel>
     implements IPhotoListWM {
   /// Сущность хранящая список фото.
-  final _photoListEntity = EntityStateNotifier<List<Photo>>();
+  final _photoListEntity = EntityStateNotifier<List<PhotoDto>>();
 
   /// Контроллер для списка фото.
   @override
@@ -17,7 +17,7 @@ class PhotoListWM extends WidgetModel<PhotoListScreen, PhotoListModel>
 
   /// Состояние списка фото.
   @override
-  ListenableState<EntityState<List<Photo>>> get photoListState =>
+  ListenableState<EntityState<List<PhotoDto>>> get photoListState =>
       _photoListEntity;
 
   PhotoListWM(PhotoListModel model) : super(model);
@@ -31,7 +31,7 @@ class PhotoListWM extends WidgetModel<PhotoListScreen, PhotoListModel>
   }
 
   @override
-  void onPhotoCardTap(Photo photo) {
+  void onPhotoCardTap(PhotoDto photo) {
     Navigator.of(context).push(PhotoDetailsScreenRoute(photo: photo));
   }
 
@@ -50,7 +50,7 @@ class PhotoListWM extends WidgetModel<PhotoListScreen, PhotoListModel>
     // TODO(AndrewVorotyntsev): заменить на данные с сервера.
     final newPhoto = List.generate(
       10,
-      (index) => Photo(
+      (index) => PhotoDto(
         imageUrl:
             'https://images.unsplash.com/photo-1687392946857-96c2b7f94b0d?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3wzMzE5MXwwfDF8YWxsfDJ8fHx8fHwyfHwxNjg3NDM2MjQ4fA&ixlib=rb-4.0.3&q=80&w=400',
         author: 'Author$index',
@@ -63,7 +63,7 @@ class PhotoListWM extends WidgetModel<PhotoListScreen, PhotoListModel>
     try {
       /// Имитируем задержку сервера.
       await Future.delayed(const Duration(seconds: 1), () {});
-      final newList = List<Photo>.from(previousData)..addAll(newPhoto);
+      final newList = List<PhotoDto>.from(previousData)..addAll(newPhoto);
       _photoListEntity.content(newList);
     } on Exception catch (e) {
       _photoListEntity.error(e, previousData);
@@ -77,10 +77,10 @@ abstract class IPhotoListWM extends IWidgetModel {
   ScrollController get photoScrollController;
 
   /// Состояние списка фото.
-  ListenableState<EntityState<List<Photo>>> get photoListState;
+  ListenableState<EntityState<List<PhotoDto>>> get photoListState;
 
   /// Обработчик нажатия на карточку с фото.
-  void onPhotoCardTap(Photo photo);
+  void onPhotoCardTap(PhotoDto photo);
 }
 
 PhotoListWM defaultAppWidgetModelFactory(BuildContext _) {

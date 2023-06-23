@@ -6,7 +6,7 @@ import 'package:photo_app/res/app_text_styles.dart';
 
 /// Виджет карточки фотографии.
 class PhotoCard extends StatelessWidget {
-  final Photo photo;
+  final PhotoDto photo;
   final VoidCallback? onCardTap;
 
   const PhotoCard({
