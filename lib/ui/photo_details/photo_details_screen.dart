@@ -1,6 +1,6 @@
 import 'package:elementary/elementary.dart';
 import 'package:flutter/material.dart';
-import 'package:photo_app/domain/photo.dart';
+import 'package:photo_app/domain/photo_dto.dart';
 import 'package:photo_app/res/app_strings.dart';
 import 'package:photo_app/res/app_text_styles.dart';
 import 'package:photo_app/ui/photo_details/photo_details_wm.dart';
@@ -8,7 +8,7 @@ import 'package:photo_app/ui/photo_details/photo_details_wm.dart';
 /// Экран деталей фото.
 class PhotoDetailsScreen extends ElementaryWidget<IPhotoDetailsWidgetModel> {
   PhotoDetailsScreen(
-    Photo photo, {
+    PhotoDto photo, {
     Key? key,
   }) : super(
           (context) => defaultAppWidgetModelFactory(
@@ -89,8 +89,8 @@ class PhotoDetailsScreen extends ElementaryWidget<IPhotoDetailsWidgetModel> {
 }
 
 /// Навигация к странице [PhotoDetailsScreen].
-class PhotoDetailsScreenRoute extends MaterialPageRoute<Photo> {
-  PhotoDetailsScreenRoute({required Photo photo})
+class PhotoDetailsScreenRoute extends MaterialPageRoute<PhotoDto> {
+  PhotoDetailsScreenRoute({required PhotoDto photo})
       : super(
           builder: (context) => PhotoDetailsScreen(photo),
         );

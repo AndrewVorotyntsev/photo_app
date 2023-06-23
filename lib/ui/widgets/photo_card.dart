@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_blurhash/flutter_blurhash.dart';
-import 'package:photo_app/domain/photo.dart';
+import 'package:photo_app/domain/photo_dto.dart';
 import 'package:photo_app/res/app_strings.dart';
 import 'package:photo_app/res/app_text_styles.dart';
 
 /// Виджет карточки фотографии.
 class PhotoCard extends StatelessWidget {
-  final Photo photo;
+  final PhotoDto photo;
   final VoidCallback? onCardTap;
 
   const PhotoCard({
