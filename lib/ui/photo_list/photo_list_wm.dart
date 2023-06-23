@@ -37,7 +37,8 @@ class PhotoListWM extends WidgetModel<PhotoListScreen, PhotoListModel>
 
   /// Обработчик скролла списка фото.
   void _photoScrollListener() {
-    if (photoScrollController.position.extentAfter <= 0) {
+    if (photoScrollController.position.extentAfter <= 0 &&
+        photoListState.value?.isLoading != true) {
       _loadPhoto();
     }
   }
