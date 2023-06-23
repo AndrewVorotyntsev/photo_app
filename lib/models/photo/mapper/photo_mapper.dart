@@ -9,11 +9,7 @@ Photo? mapPhoto(PhotoResponseModel response) {
   final shadow = response.color;
   final blurHash = response.blurHash;
 
-  if (imageUrl != null &&
-      author != null &&
-      likes != null &&
-      shadow != null &&
-      blurHash != null) {
+  if (imageUrl != null && author != null && likes != null && shadow != null) {
     final shadowColor = ColorUtil.fromHex(shadow);
 
     return Photo(
@@ -29,7 +25,7 @@ Photo? mapPhoto(PhotoResponseModel response) {
 }
 
 List<Photo> mapListPhoto(List<PhotoResponseModel> response) {
-  final photoList = List<Photo>.empty();
+  final photoList = List<Photo>.empty(growable: true);
 
   for (final photoResponse in response) {
     final photo = mapPhoto(photoResponse);

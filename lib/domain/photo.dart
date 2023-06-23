@@ -15,13 +15,13 @@ class Photo {
   final Color shadowColor;
 
   /// Хэш блюра на основе фото.
-  final String blurHash;
+  final String? blurHash;
 
   Photo({
     required this.imageUrl,
     required this.author,
     required this.likes,
     required this.shadowColor,
-    required this.blurHash,
+    this.blurHash,
   });
 }
