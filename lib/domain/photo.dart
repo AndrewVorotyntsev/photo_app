@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 /// Доменная модель фотографии.
-class PhotoDto {
+class Photo {
   /// Сссылка на изображение.
   final String imageUrl;
 
@@ -17,7 +17,7 @@ class PhotoDto {
   /// Хэш блюра на основе фото.
   final String blurHash;
 
-  PhotoDto({
+  Photo({
     required this.imageUrl,
     required this.author,
     required this.likes,

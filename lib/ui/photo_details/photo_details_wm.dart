@@ -9,7 +9,7 @@ class PhotoDetailsWM extends WidgetModel<PhotoDetailsScreen, PhotoDetailsModel>
     implements IPhotoDetailsWidgetModel {
   /// Данные о фото для отображения.
   @override
-  PhotoDto get photo => model.photo;
+  Photo get photo => model.photo;
 
   PhotoDetailsWM(PhotoDetailsModel model) : super(model);
 
@@ -22,7 +22,7 @@ class PhotoDetailsWM extends WidgetModel<PhotoDetailsScreen, PhotoDetailsModel>
 
 abstract class IPhotoDetailsWidgetModel extends IWidgetModel {
   /// Данные о фото для отображения.
-  PhotoDto get photo;
+  Photo get photo;
 
   /// Действие по нажатию назад.
   void onBackTap();
@@ -30,7 +30,7 @@ abstract class IPhotoDetailsWidgetModel extends IWidgetModel {
 
 PhotoDetailsWM defaultAppWidgetModelFactory(
   BuildContext _,
-  PhotoDto photo,
+  Photo photo,
 ) {
   return PhotoDetailsWM(
     PhotoDetailsModel(

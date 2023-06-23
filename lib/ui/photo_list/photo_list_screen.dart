@@ -20,7 +20,7 @@ class PhotoListScreen extends ElementaryWidget<IPhotoListWM> {
     return Scaffold(
       backgroundColor: AppColors.scaffoldColor,
       body: SafeArea(
-        child: EntityStateNotifierBuilder<List<PhotoDto>>(
+        child: EntityStateNotifierBuilder<List<Photo>>(
           listenableEntityState: wm.photoListState,
           builder: (context, list) {
             if (list == null) {

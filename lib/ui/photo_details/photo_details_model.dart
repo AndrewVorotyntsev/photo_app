@@ -3,6 +3,6 @@ import 'package:photo_app/domain/photo.dart';
 
 /// Имплементация Elementary модели к экрану деталей фото.
 class PhotoDetailsModel extends ElementaryModel {
-  final PhotoDto photo;
+  final Photo photo;
   PhotoDetailsModel({required this.photo});
 }
