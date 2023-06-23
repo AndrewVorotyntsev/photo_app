@@ -23,49 +23,52 @@ class PhotoCard extends StatelessWidget {
       fit: StackFit.expand,
       children: [
         BlurPlaceholder(blurHash: photo.blurHash),
-        Container(
-          decoration: BoxDecoration(
-            borderRadius: const BorderRadius.all(
-              Radius.circular(
-                20,
+        Hero(
+          tag: photo.imageUrl,
+          child: Container(
+            decoration: BoxDecoration(
+              borderRadius: const BorderRadius.all(
+                Radius.circular(
+                  20,
+                ),
+              ),
+              boxShadow: [
+                BoxShadow(
+                  color: photo.shadowColor,
+                  blurRadius: 32,
+                  offset: const Offset(0, 8),
+                ),
+              ],
+              image: DecorationImage(
+                image: NetworkImage(photo.imageUrl),
+                fit: BoxFit.fill,
               ),
             ),
-            boxShadow: [
-              BoxShadow(
-                color: photo.shadowColor,
-                blurRadius: 32,
-                offset: const Offset(0, 8),
-              ),
-            ],
-            image: DecorationImage(
-              image: NetworkImage(photo.imageUrl),
-              fit: BoxFit.fill,
-            ),
-          ),
-          clipBehavior: Clip.hardEdge,
-          child: Material(
-            type: MaterialType.transparency,
             clipBehavior: Clip.hardEdge,
-            child: InkWell(
-              onTap: onCardTap,
-              child: Padding(
-                padding: const EdgeInsets.only(left: 16),
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.end,
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      photo.author,
-                      style: AppTextStyles.cardTitleTextStyle,
-                    ),
-                    Text(
-                      '${photo.likes} ${photo.likes > 1 ? AppStrings.likes : AppStrings.like}',
-                      style: AppTextStyles.cardSubtitleTextStyle,
-                    ),
-                    const SizedBox(
-                      height: 10,
-                    ),
-                  ],
+            child: Material(
+              type: MaterialType.transparency,
+              clipBehavior: Clip.hardEdge,
+              child: InkWell(
+                onTap: onCardTap,
+                child: Padding(
+                  padding: const EdgeInsets.only(left: 16),
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.end,
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        photo.author,
+                        style: AppTextStyles.cardTitleTextStyle,
+                      ),
+                      Text(
+                        '${photo.likes} ${photo.likes > 1 ? AppStrings.likes : AppStrings.like}',
+                        style: AppTextStyles.cardSubtitleTextStyle,
+                      ),
+                      const SizedBox(
+                        height: 10,
+                      ),
+                    ],
+                  ),
                 ),
               ),
             ),
