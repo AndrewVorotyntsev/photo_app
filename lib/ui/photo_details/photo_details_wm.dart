@@ -27,7 +27,7 @@ abstract class IPhotoDetailsWidgetModel extends IWidgetModel {
   /// Данные о фото для отображения.
   PhotoDto get photo;
 
-  /// Кол-во лайков
+  /// Кол-во лайков.
   int get likes;
 
   /// Действие по нажатию назад.
