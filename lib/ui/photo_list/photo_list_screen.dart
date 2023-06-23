@@ -22,6 +22,8 @@ class PhotoListScreen extends ElementaryWidget<IPhotoListWM> {
       body: SafeArea(
         child: EntityStateNotifierBuilder<List<PhotoDto>>(
           listenableEntityState: wm.photoListState,
+          errorBuilder: (context, e, list) =>
+              _ErrorWidget(onRefresh: wm.refreshScreen),
           builder: (context, list) {
             if (list == null) {
               return const Center(
@@ -33,6 +35,7 @@ class PhotoListScreen extends ElementaryWidget<IPhotoListWM> {
                 child: CupertinoActivityIndicator(radius: 11),
               );
             }
+
             return Stack(
               alignment: Alignment.bottomCenter,
               children: [
@@ -83,6 +86,34 @@ class PhotoListScreen extends ElementaryWidget<IPhotoListWM> {
             );
           },
         ),
+      ),
+    );
+  }
+}
+
+/// Экран ошибки с возможность рефреша.
+class _ErrorWidget extends StatelessWidget {
+  final VoidCallback onRefresh;
+  const _ErrorWidget({
+    required this.onRefresh,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Center(
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          IconButton(
+            icon: const Icon(
+              Icons.refresh,
+              size: 30,
+            ),
+            iconSize: 30,
+            onPressed: onRefresh,
+          ),
+          const Text(AppStrings.refreshIntent),
+        ],
       ),
     );
   }

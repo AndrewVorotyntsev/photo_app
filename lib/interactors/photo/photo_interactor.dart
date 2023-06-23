@@ -1,3 +1,4 @@
+import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:injectable/injectable.dart';
 import 'package:photo_app/api/photo/photo_api.dart';
@@ -12,7 +13,7 @@ abstract class PhotoInteractor {
   });
 }
 
-/// Имплементация к классу [PhotoInteractor]
+/// Имплементация к классу [PhotoInteractor].
 @Injectable(as: PhotoInteractor)
 class PhotoInteractorImpl implements PhotoInteractor {
   PhotoApi _photoApi;
@@ -21,13 +22,16 @@ class PhotoInteractorImpl implements PhotoInteractor {
 
   @override
   Future<List<PhotoDto>> getPhotos({required int page}) async {
-    final photoResponse = await _photoApi.getPhotos(
-      page: page,
-      clientId:
-          '896d4f52c589547b2134bd75ed48742db637fa51810b49b607e37e46ab2c0043',
-    );
-    final photoDomains = mapListPhoto(photoResponse);
-    return photoDomains;
+    try {
+      final photoResponse = await _photoApi.getPhotos(
+        page: page,
+        clientId: 'clientId',
+      );
+      final photoDomains = mapListPhoto(photoResponse);
+      return photoDomains;
+    } on DioException catch (_) {
+      rethrow;
+    }
   }
 }
 

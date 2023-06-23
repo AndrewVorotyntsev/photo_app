@@ -6,6 +6,7 @@ import 'package:photo_app/interactors/photo/photo_interactor.dart';
 import 'package:photo_app/ui/photo_details/photo_details_screen.dart';
 import 'package:photo_app/ui/photo_list/photo_list_model.dart';
 import 'package:photo_app/ui/photo_list/photo_list_screen.dart';
+import 'package:photo_app/ui/widgets/snackBars.dart';
 
 /// Имплементация и реализация Виджет модели.
 class PhotoListWM extends WidgetModel<PhotoListScreen, PhotoListModel>
@@ -25,6 +26,8 @@ class PhotoListWM extends WidgetModel<PhotoListScreen, PhotoListModel>
   bool _isTotalLoaded = false;
 
   int _currentPage = 1;
+
+  List<PhotoDto>? get _photoData => _photoListEntity.value?.data;
 
   PhotoListWM(PhotoListModel model) : super(model);
 
@@ -47,6 +50,11 @@ class PhotoListWM extends WidgetModel<PhotoListScreen, PhotoListModel>
     Navigator.of(context).push(PhotoDetailsScreenRoute(photo: photo));
   }
 
+  @override
+  void refreshScreen() {
+    _loadPhoto();
+  }
+
   /// Обработчик скролла списка фото.
   void _photoScrollListener() {
     if (photoScrollController.position.extentAfter <= 0 &&
@@ -57,7 +65,7 @@ class PhotoListWM extends WidgetModel<PhotoListScreen, PhotoListModel>
   }
 
   Future<void> _loadPhoto() async {
-    final previousData = _photoListEntity.value?.data ?? [];
+    final previousData = _photoData ?? [];
     _photoListEntity.loading(previousData);
 
     try {
@@ -71,7 +79,15 @@ class PhotoListWM extends WidgetModel<PhotoListScreen, PhotoListModel>
         _currentPage++;
       }
     } on Exception catch (e) {
-      _photoListEntity.error(e, previousData);
+      if (_photoData?.isNotEmpty != true) {
+        // Отправляем ошибку, чтобы перерисовать экран
+        _photoListEntity.error(e, previousData);
+      } else {
+        // Показываем пользователю снэкбар
+        ScaffoldMessenger.of(context).showSnackBar(errorLoadingSnackBar);
+        // Убидаем индикатор загрузки
+        _photoListEntity.content(previousData);
+      }
     }
   }
 }
@@ -86,6 +102,9 @@ abstract class IPhotoListWM extends IWidgetModel {
 
   /// Обработчик нажатия на карточку с фото.
   void onPhotoCardTap(PhotoDto photo);
+
+  /// Обновить экран.
+  void refreshScreen();
 }
 
 PhotoListWM defaultAppWidgetModelFactory(BuildContext _) {
