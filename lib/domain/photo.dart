@@ -11,8 +11,10 @@ class Photo {
   /// Количество лайков.
   final int likes;
 
+  /// Ассоциированный цвет тени.
   final Color shadowColor;
 
+  /// Хэш блюра на основе фото.
   final String blurHash;
 
   Photo({
