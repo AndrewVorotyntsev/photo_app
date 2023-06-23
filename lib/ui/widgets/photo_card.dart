@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_blurhash/flutter_blurhash.dart';
 import 'package:photo_app/domain/photo.dart';
@@ -22,7 +23,7 @@ class PhotoCard extends StatelessWidget {
       // Для того, чтобы изображение заняло всю карточку.
       fit: StackFit.expand,
       children: [
-        BlurPlaceholder(blurHash: photo.blurHash),
+        if (photo.blurHash != null) BlurPlaceholder(blurHash: photo.blurHash!),
         Container(
           decoration: BoxDecoration(
             borderRadius: const BorderRadius.all(
@@ -38,8 +39,8 @@ class PhotoCard extends StatelessWidget {
               ),
             ],
             image: DecorationImage(
-              image: NetworkImage(photo.imageUrl),
-              fit: BoxFit.fill,
+              image: CachedNetworkImageProvider(photo.imageUrl),
+              fit: BoxFit.cover,
             ),
           ),
           clipBehavior: Clip.hardEdge,

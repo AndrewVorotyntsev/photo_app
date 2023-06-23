@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:elementary/elementary.dart';
 import 'package:flutter/material.dart';
 import 'package:photo_app/domain/photo.dart';
@@ -31,8 +32,8 @@ class PhotoDetailsScreen extends ElementaryWidget<IPhotoDetailsWidgetModel> {
                   height: 371,
                   decoration: BoxDecoration(
                     image: DecorationImage(
-                      image: NetworkImage(wm.photo.imageUrl),
-                      fit: BoxFit.fill,
+                      image: CachedNetworkImageProvider(wm.photo.imageUrl),
+                      fit: BoxFit.cover,
                     ),
                     borderRadius: const BorderRadius.only(
                       bottomLeft: Radius.circular(32),

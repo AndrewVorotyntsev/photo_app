@@ -1,6 +1,8 @@
 import 'package:elementary/elementary.dart';
 import 'package:flutter/material.dart';
+import 'package:get_it/get_it.dart';
 import 'package:photo_app/domain/photo.dart';
+import 'package:photo_app/interactors/photo/photo_interactor.dart';
 import 'package:photo_app/ui/photo_details/photo_details_screen.dart';
 import 'package:photo_app/ui/photo_list/photo_list_model.dart';
 import 'package:photo_app/ui/photo_list/photo_list_screen.dart';
@@ -20,6 +22,10 @@ class PhotoListWM extends WidgetModel<PhotoListScreen, PhotoListModel>
   ListenableState<EntityState<List<Photo>>> get photoListState =>
       _photoListEntity;
 
+  bool _isTotalLoaded = false;
+
+  int _currentPage = 1;
+
   PhotoListWM(PhotoListModel model) : super(model);
 
   @override
@@ -37,7 +43,9 @@ class PhotoListWM extends WidgetModel<PhotoListScreen, PhotoListModel>
 
   /// Обработчик скролла списка фото.
   void _photoScrollListener() {
-    if (photoScrollController.position.extentAfter <= 0) {
+    if (photoScrollController.position.extentAfter <= 0 &&
+        _isTotalLoaded != true &&
+        photoListState.value?.isLoading != true) {
       _loadPhoto();
     }
   }
@@ -46,25 +54,16 @@ class PhotoListWM extends WidgetModel<PhotoListScreen, PhotoListModel>
     final previousData = _photoListEntity.value?.data ?? [];
     _photoListEntity.loading(previousData);
 
-    /// Генерируем моковые данные.
-    // TODO(AndrewVorotyntsev): заменить на данные с сервера.
-    final newPhoto = List.generate(
-      10,
-      (index) => Photo(
-        imageUrl:
-            'https://images.unsplash.com/photo-1687392946857-96c2b7f94b0d?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3wzMzE5MXwwfDF8YWxsfDJ8fHx8fHwyfHwxNjg3NDM2MjQ4fA&ixlib=rb-4.0.3&q=80&w=400',
-        author: 'Author$index',
-        likes: index,
-        shadowColor: const Color(0xFF262673).withOpacity(0.7),
-        blurHash: 'LC7-g_NzImwHS#aHxJb|MtkanMs?',
-      ),
-    );
-
     try {
       /// Имитируем задержку сервера.
-      await Future.delayed(const Duration(seconds: 1), () {});
-      final newList = List<Photo>.from(previousData)..addAll(newPhoto);
-      _photoListEntity.content(newList);
+      final newPhotos = await model.getPhoto(page: _currentPage);
+      if (newPhotos.isEmpty) {
+        _isTotalLoaded = true;
+      } else {
+        final newList = List<Photo>.from(previousData)..addAll(newPhotos);
+        _photoListEntity.content(newList);
+        _currentPage++;
+      }
     } on Exception catch (e) {
       _photoListEntity.error(e, previousData);
     }
@@ -85,6 +84,8 @@ abstract class IPhotoListWM extends IWidgetModel {
 
 PhotoListWM defaultAppWidgetModelFactory(BuildContext _) {
   return PhotoListWM(
-    PhotoListModel(),
+    PhotoListModel(
+      GetIt.I.get<PhotoInteractor>(),
+    ),
   );
 }

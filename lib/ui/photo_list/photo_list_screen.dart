@@ -54,7 +54,6 @@ class PhotoListScreen extends ElementaryWidget<IPhotoListWM> {
                             index,
                           ) {
                             return PhotoCard(
-                              // TODO(AndrewVorotyntsev): поставлять данные с сервера.
                               photo: list[index],
                               onCardTap: () => wm.onPhotoCardTap(list[index]),
                             );
