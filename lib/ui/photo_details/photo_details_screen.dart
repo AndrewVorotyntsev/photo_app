@@ -40,24 +40,8 @@ class PhotoDetailsScreen extends ElementaryWidget<IPhotoDetailsWidgetModel> {
                     ),
                   ),
                 ),
-                Padding(
-                  padding: const EdgeInsets.only(left: 15, top: 43),
-                  child: ClipRect(
-                    child: Material(
-                      borderRadius: const BorderRadius.all(
-                        Radius.circular(10),
-                      ),
-                      type: MaterialType.transparency,
-                      clipBehavior: Clip.hardEdge,
-                      child: InkWell(
-                        onTap: wm.onBackTap,
-                        child: Text(
-                          AppStrings.backLabel,
-                          style: AppTextStyles.backButtonTextStyle,
-                        ),
-                      ),
-                    ),
-                  ),
+                _BackButton(
+                  onBackTap: wm.onBackTap,
                 ),
               ],
             ),
@@ -79,6 +63,38 @@ class PhotoDetailsScreen extends ElementaryWidget<IPhotoDetailsWidgetModel> {
               ),
             ),
           ],
+        ),
+      ),
+    );
+  }
+}
+
+/// Кнопка 'Назад'.
+class _BackButton extends StatelessWidget {
+  final VoidCallback onBackTap;
+
+  const _BackButton({
+    required this.onBackTap,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.only(left: 15, top: 43),
+      child: ClipRect(
+        child: Material(
+          borderRadius: const BorderRadius.all(
+            Radius.circular(10),
+          ),
+          type: MaterialType.transparency,
+          clipBehavior: Clip.hardEdge,
+          child: InkWell(
+            onTap: onBackTap,
+            child: Text(
+              AppStrings.backLabel,
+              style: AppTextStyles.backButtonTextStyle,
+            ),
+          ),
         ),
       ),
     );
