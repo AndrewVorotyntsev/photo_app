@@ -31,6 +31,12 @@ class PhotoListWM extends WidgetModel<PhotoListScreen, PhotoListModel>
   }
 
   @override
+  void dispose() {
+    photoScrollController.dispose();
+    super.dispose();
+  }
+
+  @override
   void onPhotoCardTap(PhotoDto photo) {
     Navigator.of(context).push(PhotoDetailsScreenRoute(photo: photo));
   }
