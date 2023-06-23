@@ -42,14 +42,11 @@ class PhotoDetailsScreen extends ElementaryWidget<IPhotoDetailsWidgetModel> {
                 ),
                 Padding(
                   padding: const EdgeInsets.only(left: 15, top: 43),
-                  child: Container(
-                    decoration: const BoxDecoration(
-                      borderRadius: BorderRadius.all(
+                  child: ClipRect(
+                    child: Material(
+                      borderRadius: const BorderRadius.all(
                         Radius.circular(10),
                       ),
-                    ),
-                    clipBehavior: Clip.hardEdge,
-                    child: Material(
                       type: MaterialType.transparency,
                       clipBehavior: Clip.hardEdge,
                       child: InkWell(
