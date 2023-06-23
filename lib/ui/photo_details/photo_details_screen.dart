@@ -58,7 +58,7 @@ class PhotoDetailsScreen extends ElementaryWidget<IPhotoDetailsWidgetModel> {
             Padding(
               padding: const EdgeInsets.only(left: 26),
               child: Text(
-                '${wm.photo.likes} ${AppStrings.likes}',
+                '${wm.likes} ${wm.likes > 1 ? AppStrings.likes : AppStrings.like}',
                 style: AppTextStyles.likesTextStyle,
               ),
             ),
