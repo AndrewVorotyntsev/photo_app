@@ -24,10 +24,14 @@ class PhotoListScreen extends ElementaryWidget<IPhotoListWM> {
           listenableEntityState: wm.photoListState,
           builder: (context, list) {
             if (list == null) {
-              return const SizedBox.shrink();
+              return const Center(
+                child: CupertinoActivityIndicator(radius: 11),
+              );
             }
             if (list.isEmpty) {
-              return const SizedBox.shrink();
+              return const Center(
+                child: CupertinoActivityIndicator(radius: 11),
+              );
             }
             return Stack(
               alignment: Alignment.bottomCenter,
@@ -54,7 +58,6 @@ class PhotoListScreen extends ElementaryWidget<IPhotoListWM> {
                             index,
                           ) {
                             return PhotoCard(
-                              // TODO(AndrewVorotyntsev): поставлять данные с сервера.
                               photo: list[index],
                               onCardTap: () => wm.onPhotoCardTap(list[index]),
                             );
