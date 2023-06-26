@@ -11,23 +11,20 @@ import 'package:photo_app/ui/photo_list/photo_list_screen.dart';
 class PhotoListWM extends WidgetModel<PhotoListScreen, PhotoListModel>
     implements IPhotoListWM {
   /// Сущность хранящая список фото.
-  final _photoListEntity = EntityStateNotifier<List<PhotoDto>>();
+  @override
+  final EntityStateNotifier<List<Photo>> photoListState =
+      EntityStateNotifier<List<Photo>>();
 
   /// Контроллер для списка фото.
   @override
   late ScrollController photoScrollController;
 
-  /// Состояние списка фото.
-  @override
-  ListenableState<EntityState<List<PhotoDto>>> get photoListState =>
-      _photoListEntity;
-
   PhotoListWM(PhotoListModel model) : super(model);
 
   @override
   Future<void> initWidgetModel() async {
-    photoScrollController = ScrollController();
-    photoScrollController.addListener(_photoScrollListener);
+    photoScrollController = ScrollController()
+      ..addListener(_photoScrollListener);
     await _loadPhoto();
     super.initWidgetModel();
   }
@@ -35,8 +32,10 @@ class PhotoListWM extends WidgetModel<PhotoListScreen, PhotoListModel>
   @override
   void dispose() {
     photoScrollController.dispose();
+    photoListState.dispose();
     super.dispose();
   }
+
 
   @override
   void onPhotoCardTap(PhotoDto photo) {
@@ -52,8 +51,8 @@ class PhotoListWM extends WidgetModel<PhotoListScreen, PhotoListModel>
   }
 
   Future<void> _loadPhoto() async {
-    final previousData = _photoListEntity.value?.data ?? [];
-    _photoListEntity.loading(previousData);
+    final previousData = photoListState.value?.data ?? [];
+    photoListState.loading(previousData);
 
     try {
       final newPhotos = await model.getPhoto();
@@ -62,7 +61,7 @@ class PhotoListWM extends WidgetModel<PhotoListScreen, PhotoListModel>
         ...newPhotos,
       ]);
     } on Exception catch (e) {
-      _photoListEntity.error(e, previousData);
+      photoListState.error(e, previousData);
     }
   }
 }
