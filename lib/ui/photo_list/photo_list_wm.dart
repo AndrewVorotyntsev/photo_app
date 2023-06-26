@@ -69,7 +69,6 @@ class PhotoListWM extends WidgetModel<PhotoListScreen, PhotoListModel>
     _photoListEntity.loading(previousData);
 
     try {
-      /// Имитируем задержку сервера.
       final newPhotos = await model.getPhoto(page: _currentPage);
       if (newPhotos.isEmpty) {
         _isTotalLoaded = true;
