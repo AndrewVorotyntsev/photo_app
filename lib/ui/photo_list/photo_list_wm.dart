@@ -8,25 +8,29 @@ import 'package:photo_app/ui/photo_list/photo_list_screen.dart';
 class PhotoListWM extends WidgetModel<PhotoListScreen, PhotoListModel>
     implements IPhotoListWM {
   /// Сущность хранящая список фото.
-  final _photoListEntity = EntityStateNotifier<List<Photo>>();
+  @override
+  final EntityStateNotifier<List<Photo>> photoListState =
+      EntityStateNotifier<List<Photo>>();
 
   /// Контроллер для списка фото.
   @override
   late ScrollController photoScrollController;
 
-  /// Состояние списка фото.
-  @override
-  ListenableState<EntityState<List<Photo>>> get photoListState =>
-      _photoListEntity;
-
   PhotoListWM(PhotoListModel model) : super(model);
 
   @override
   Future<void> initWidgetModel() async {
-    photoScrollController = ScrollController();
-    photoScrollController.addListener(_photoScrollListener);
+    photoScrollController = ScrollController()
+      ..addListener(_photoScrollListener);
     await _loadPhoto();
     super.initWidgetModel();
+  }
+
+  @override
+  void dispose() {
+    photoScrollController.dispose();
+    photoListState.dispose();
+    super.dispose();
   }
 
   @override
@@ -42,8 +46,8 @@ class PhotoListWM extends WidgetModel<PhotoListScreen, PhotoListModel>
   }
 
   Future<void> _loadPhoto() async {
-    final previousData = _photoListEntity.value?.data ?? [];
-    _photoListEntity.loading(previousData);
+    final previousData = photoListState.value?.data ?? [];
+    photoListState.loading(previousData);
 
     /// Генерируем моковые данные.
     // TODO(AndrewVorotyntsev): заменить на данные с сервера.
@@ -61,9 +65,9 @@ class PhotoListWM extends WidgetModel<PhotoListScreen, PhotoListModel>
       /// Имитируем задержку сервера.
       await Future.delayed(const Duration(seconds: 1), () {});
       final newList = List<Photo>.from(previousData)..addAll(newPhoto);
-      _photoListEntity.content(newList);
+      photoListState.content(newList);
     } on Exception catch (e) {
-      _photoListEntity.error(e, previousData);
+      photoListState.error(e, previousData);
     }
   }
 }
