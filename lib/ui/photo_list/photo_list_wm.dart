@@ -57,8 +57,10 @@ class PhotoListWM extends WidgetModel<PhotoListScreen, PhotoListModel>
 
     try {
       final newPhotos = await model.getPhoto();
-      final newList = List<PhotoDto>.from(previousData)..addAll(newPhotos);
-      _photoListEntity.content(newList);
+      _photoListEntity.content([
+        ...previousData,
+        ...newPhotos,
+      ]);
     } on Exception catch (e) {
       _photoListEntity.error(e, previousData);
     }
