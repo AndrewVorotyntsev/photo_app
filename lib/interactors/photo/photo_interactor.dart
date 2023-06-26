@@ -29,7 +29,12 @@ class PhotoInteractorImpl implements PhotoInteractor {
       );
       final photoDomains = mapListPhoto(photoResponse);
       return photoDomains;
-    } on DioException catch (_) {
+    } on DioException catch (e) {
+      if (e.type.name == 'badResponse') {
+        // Если дошли до конца возвращаем пустой список,
+        // как маркер что данные закончились.
+        return [];
+      }
       rethrow;
     }
   }

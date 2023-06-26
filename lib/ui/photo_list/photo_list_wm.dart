@@ -73,6 +73,8 @@ class PhotoListWM extends WidgetModel<PhotoListScreen, PhotoListModel>
       final newPhotos = await model.getPhoto(page: _currentPage);
       if (newPhotos.isEmpty) {
         _isTotalLoaded = true;
+        _photoListEntity.content(previousData);
+        return;
       } else {
         final newList = List<PhotoDto>.from(previousData)..addAll(newPhotos);
         _photoListEntity.content(newList);
@@ -80,12 +82,12 @@ class PhotoListWM extends WidgetModel<PhotoListScreen, PhotoListModel>
       }
     } on Exception catch (e) {
       if (_photoData?.isNotEmpty != true) {
-        // Отправляем ошибку, чтобы перерисовать экран
+        // Отправляем ошибку, чтобы перерисовать экран.
         _photoListEntity.error(e, previousData);
       } else {
-        // Показываем пользователю снэкбар
+        // Показываем пользователю снэкбар.
         ScaffoldMessenger.of(context).showSnackBar(errorLoadingSnackBar);
-        // Убидаем индикатор загрузки
+        // Убидаем индикатор загрузки.
         _photoListEntity.content(previousData);
       }
     }
