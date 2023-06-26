@@ -62,7 +62,7 @@ class PhotoCard extends StatelessWidget {
                         style: AppTextStyles.cardTitleTextStyle,
                       ),
                       Text(
-                        '${photo.likes} ${AppStrings.like(photo.likes)}',
+                        AppStrings.like(photo.likes),
                         style: AppTextStyles.cardSubtitleTextStyle,
                       ),
                       const SizedBox(

@@ -12,29 +12,26 @@ import 'package:photo_app/ui/widgets/snack_bars.dart';
 class PhotoListWM extends WidgetModel<PhotoListScreen, PhotoListModel>
     implements IPhotoListWM {
   /// Сущность хранящая список фото.
-  final _photoListEntity = EntityStateNotifier<List<PhotoDto>>();
+  @override
+  final EntityStateNotifier<List<PhotoDto>> photoListState =
+      EntityStateNotifier<List<PhotoDto>>();
 
   /// Контроллер для списка фото.
   @override
   late ScrollController photoScrollController;
 
-  /// Состояние списка фото.
-  @override
-  ListenableState<EntityState<List<PhotoDto>>> get photoListState =>
-      _photoListEntity;
-
   bool _isTotalLoaded = false;
 
   int _currentPage = 1;
 
-  List<PhotoDto>? get _photoData => _photoListEntity.value?.data;
+  List<PhotoDto>? get _photoData => photoListState.value?.data;
 
   PhotoListWM(PhotoListModel model) : super(model);
 
   @override
   Future<void> initWidgetModel() async {
-    photoScrollController = ScrollController();
-    photoScrollController.addListener(_photoScrollListener);
+    photoScrollController = ScrollController()
+      ..addListener(_photoScrollListener);
     await _loadPhoto();
     super.initWidgetModel();
   }
@@ -42,6 +39,7 @@ class PhotoListWM extends WidgetModel<PhotoListScreen, PhotoListModel>
   @override
   void dispose() {
     photoScrollController.dispose();
+    photoListState.dispose();
     super.dispose();
   }
 
@@ -65,31 +63,31 @@ class PhotoListWM extends WidgetModel<PhotoListScreen, PhotoListModel>
   }
 
   Future<void> _loadPhoto() async {
-    final previousData = _photoData ?? [];
-    _photoListEntity.loading(previousData);
+    final previousData = photoListState.value?.data ?? [];
+    photoListState.loading(previousData);
 
     try {
       final newPhotos = await model.getPhoto(page: _currentPage);
       if (newPhotos.isEmpty) {
         _isTotalLoaded = true;
-        _photoListEntity.content(previousData);
+        photoListState.content(previousData);
         return;
       } else {
-        _photoListEntity.content([
-        ...previousData,
-        ...newPhotos,
+        photoListState.content([
+          ...previousData,
+          ...newPhotos,
         ]);
         _currentPage++;
       }
     } on Exception catch (e) {
       if (_photoData?.isEmpty ?? false) {
         // Отправляем ошибку, чтобы перерисовать экран.
-        _photoListEntity.error(e, previousData);
+        photoListState.error(e, previousData);
       } else {
         // Показываем пользователю снэкбар.
         ScaffoldMessenger.of(context).showSnackBar(errorLoadingSnackBar);
         // Убидаем индикатор загрузки.
-        _photoListEntity.content(previousData);
+        photoListState.content(previousData);
       }
     }
   }

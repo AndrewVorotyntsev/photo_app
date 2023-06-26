@@ -4,5 +4,5 @@ class AppStrings {
   static const refreshIntent = 'Обновить данные';
   static const loadingError = 'Произошла ошибка во время загрузки данных.';
 
-  static String like(int qty) => qty == 1 ? 'like' : 'likes';
+  static String like(int qty) => qty == 1 ? '$qty like' : '$qty likes';
 }
