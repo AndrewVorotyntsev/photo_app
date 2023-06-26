@@ -40,10 +40,13 @@ class PhotoCard extends StatelessWidget {
                   offset: const Offset(0, 8),
                 ),
               ],
-              image: DecorationImage(
-                image: CachedNetworkImageProvider(photo.imageUrl),
-                fit: BoxFit.cover,
-              ),
+              color: (photo.imageUrl == '') ? Colors.red : Colors.transparent,
+              image: (photo.imageUrl != '')
+                  ? DecorationImage(
+                      image: CachedNetworkImageProvider(photo.imageUrl),
+                      fit: BoxFit.cover,
+                    )
+                  : null,
             ),
             clipBehavior: Clip.hardEdge,
             child: Material(
