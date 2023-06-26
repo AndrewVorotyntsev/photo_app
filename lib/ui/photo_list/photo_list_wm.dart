@@ -81,7 +81,7 @@ class PhotoListWM extends WidgetModel<PhotoListScreen, PhotoListModel>
         _currentPage++;
       }
     } on Exception catch (e) {
-      if (_photoData?.isNotEmpty != true) {
+      if (_photoData?.isEmpty ?? false) {
         // Отправляем ошибку, чтобы перерисовать экран.
         _photoListEntity.error(e, previousData);
       } else {
