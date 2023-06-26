@@ -7,7 +7,7 @@ void main() {
   configureDependencies();
   // Убираем цвет статус бара.
   SystemChrome.setSystemUIOverlayStyle(const SystemUiOverlayStyle(
-    statusBarColor: Colors.transparent,
+    statusBarColor: Colors.black,
   ));
   runApp(const MyApp());
 }
