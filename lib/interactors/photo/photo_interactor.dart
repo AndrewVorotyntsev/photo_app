@@ -16,7 +16,7 @@ abstract class PhotoInteractor {
 /// Имплементация к классу [PhotoInteractor].
 @Injectable(as: PhotoInteractor)
 class PhotoInteractorImpl implements PhotoInteractor {
-  PhotoApi _photoApi;
+  final PhotoApi _photoApi;
 
   PhotoInteractorImpl(this._photoApi);
 
@@ -25,15 +25,16 @@ class PhotoInteractorImpl implements PhotoInteractor {
     try {
       final photoResponse = await _photoApi.getPhotos(
         page: page,
-        // TODO: указать АПИ Ключ.
+        // TODO(AndrewVorotyntsev): указать АПИ Ключ.
         clientId: 'clientId',
       );
       final photoDomains = mapListPhoto(photoResponse);
       return photoDomains;
     } on DioException catch (e) {
-      if (e.type.name == 'badResponse') {
-        // Если дошли до конца возвращаем пустой список,
-        // как маркер что данные закончились.
+      // Если дошли до конца возвращаем пустой список,
+      // как маркер что данные закончились.
+      // Код 403 означает, что доступ к данным ограничен.
+      if (e.response?.statusCode == 403) {
         return [];
       }
       rethrow;

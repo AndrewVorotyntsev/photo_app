@@ -6,7 +6,7 @@ import 'package:photo_app/interactors/photo/photo_interactor.dart';
 import 'package:photo_app/ui/photo_details/photo_details_screen.dart';
 import 'package:photo_app/ui/photo_list/photo_list_model.dart';
 import 'package:photo_app/ui/photo_list/photo_list_screen.dart';
-import 'package:photo_app/ui/widgets/snackBars.dart';
+import 'package:photo_app/ui/widgets/snack_bars.dart';
 
 /// Имплементация и реализация Виджет модели.
 class PhotoListWM extends WidgetModel<PhotoListScreen, PhotoListModel>
