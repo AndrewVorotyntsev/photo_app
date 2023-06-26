@@ -75,8 +75,10 @@ class PhotoListWM extends WidgetModel<PhotoListScreen, PhotoListModel>
         _photoListEntity.content(previousData);
         return;
       } else {
-        final newList = List<PhotoDto>.from(previousData)..addAll(newPhotos);
-        _photoListEntity.content(newList);
+        _photoListEntity.content([
+        ...previousData,
+        ...newPhotos,
+        ]);
         _currentPage++;
       }
     } on Exception catch (e) {

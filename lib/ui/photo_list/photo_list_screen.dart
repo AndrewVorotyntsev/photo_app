@@ -26,14 +26,10 @@ class PhotoListScreen extends ElementaryWidget<IPhotoListWM> {
               _ErrorWidget(onRefresh: wm.refreshScreen),
           builder: (context, list) {
             if (list == null) {
-              return const Center(
-                child: CupertinoActivityIndicator(radius: 11),
-              );
+              return const LoadingScreenWidget();
             }
             if (list.isEmpty) {
-              return const Center(
-                child: CupertinoActivityIndicator(radius: 11),
-              );
+              return const LoadingScreenWidget();
             }
 
             return Stack(
@@ -87,6 +83,20 @@ class PhotoListScreen extends ElementaryWidget<IPhotoListWM> {
           },
         ),
       ),
+    );
+  }
+}
+
+/// Виджет, который отображается при загрузке экрана.
+class LoadingScreenWidget extends StatelessWidget {
+  const LoadingScreenWidget({
+    super.key,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return const Center(
+      child: CupertinoActivityIndicator(radius: 11),
     );
   }
 }
