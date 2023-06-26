@@ -27,19 +27,16 @@ class PhotoDetailsScreen extends ElementaryWidget<IPhotoDetailsWidgetModel> {
           children: [
             Stack(
               children: [
-                Hero(
-                  tag: wm.photo.imageUrl,
-                  child: Container(
-                    height: 371,
-                    decoration: BoxDecoration(
-                      image: DecorationImage(
-                        image: NetworkImage(wm.photo.imageUrl),
-                        fit: BoxFit.fill,
-                      ),
-                      borderRadius: const BorderRadius.only(
-                        bottomLeft: Radius.circular(32),
-                        bottomRight: Radius.circular(32),
-                      ),
+                Container(
+                  height: 371,
+                  decoration: BoxDecoration(
+                    image: DecorationImage(
+                      image: NetworkImage(wm.photo.imageUrl),
+                      fit: BoxFit.fill,
+                    ),
+                    borderRadius: const BorderRadius.only(
+                      bottomLeft: Radius.circular(32),
+                      bottomRight: Radius.circular(32),
                     ),
                   ),
                 ),
@@ -61,7 +58,7 @@ class PhotoDetailsScreen extends ElementaryWidget<IPhotoDetailsWidgetModel> {
             Padding(
               padding: const EdgeInsets.only(left: 26),
               child: Text(
-                '${wm.likes} ${wm.likes != 1 ? AppStrings.likes : AppStrings.like}',
+                '${wm.likes} ${AppStrings.like(wm.likes)}',
                 style: AppTextStyles.likesTextStyle,
               ),
             ),
