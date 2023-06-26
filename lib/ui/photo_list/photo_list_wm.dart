@@ -12,8 +12,8 @@ class PhotoListWM extends WidgetModel<PhotoListScreen, PhotoListModel>
     implements IPhotoListWM {
   /// Сущность хранящая список фото.
   @override
-  final EntityStateNotifier<List<Photo>> photoListState =
-      EntityStateNotifier<List<Photo>>();
+  final EntityStateNotifier<List<PhotoDto>> photoListState =
+      EntityStateNotifier<List<PhotoDto>>();
 
   /// Контроллер для списка фото.
   @override
@@ -36,7 +36,6 @@ class PhotoListWM extends WidgetModel<PhotoListScreen, PhotoListModel>
     super.dispose();
   }
 
-
   @override
   void onPhotoCardTap(PhotoDto photo) {
     Navigator.of(context).push(PhotoDetailsScreenRoute(photo: photo));
@@ -56,7 +55,7 @@ class PhotoListWM extends WidgetModel<PhotoListScreen, PhotoListModel>
 
     try {
       final newPhotos = await model.getPhoto();
-      _photoListEntity.content([
+      photoListState.content([
         ...previousData,
         ...newPhotos,
       ]);
