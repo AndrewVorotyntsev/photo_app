@@ -25,6 +25,7 @@ class PhotoInteractorImpl implements PhotoInteractor {
     try {
       final photoResponse = await _photoApi.getPhotos(
         page: page,
+        // TODO: указать АПИ Ключ.
         clientId: 'clientId',
       );
       final photoDomains = mapListPhoto(photoResponse);
