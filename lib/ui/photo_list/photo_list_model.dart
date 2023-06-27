@@ -4,11 +4,11 @@ import 'package:photo_app/interactors/photo/photo_interactor.dart';
 
 /// Имплементация Elementary модели к Экрану списка фотографий.
 class PhotoListModel extends ElementaryModel {
-  PhotoInteractor photoInteractor;
+  final PhotoInteractor _photoInteractor;
 
-  PhotoListModel(this.photoInteractor);
+  PhotoListModel(this._photoInteractor);
 
   Future<List<PhotoDto>> getPhoto() async {
-    return photoInteractor.getPhotos(page: 1);
+    return _photoInteractor.getPhotos(page: 1);
   }
 }
