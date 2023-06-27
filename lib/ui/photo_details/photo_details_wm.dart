@@ -33,7 +33,7 @@ abstract class IPhotoDetailsWidgetModel extends IWidgetModel {
   /// Кол-во лайков.
   int get likes;
 
-  /// Ссылка на изображение
+  /// Ссылка на изображение.
   String get imageUrl;
 
   /// Действие по нажатию назад.

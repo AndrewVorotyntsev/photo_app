@@ -1,6 +1,7 @@
 import 'package:elementary_test/elementary_test.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:mocktail/mocktail.dart';
 import 'package:photo_app/domain/photo_dto.dart';
 import 'package:photo_app/interactors/photo/photo_interactor.dart';
 import 'package:photo_app/ui/photo_details/photo_details_model.dart';
@@ -10,8 +11,13 @@ import 'package:photo_app/ui/photo_list/photo_list_model.dart';
 import 'package:photo_app/ui/photo_list/photo_list_screen.dart';
 import 'package:photo_app/ui/photo_list/photo_list_wm.dart';
 
+import 'mock/photo/photo_interactor_mock.dart';
+
 void main() {
   late PhotoDto photo;
+  late PhotoInteractor photoInteractor;
+  late List<PhotoDto> newPhotos;
+  const answerDelay = Duration(milliseconds: 400);
 
   setUp(() async {
     photo = PhotoDto(
@@ -20,13 +26,32 @@ void main() {
       likes: 1,
       shadowColor: Colors.grey,
     );
+
+    newPhotos = List.generate(
+      10,
+      (index) => PhotoDto(
+        imageUrl: '',
+        author: 'Author$index',
+        likes: index,
+        shadowColor: const Color(0xFF262673).withOpacity(0.7),
+        blurHash: 'LC7-g_NzImwHS#aHxJb|MtkanMs?',
+      ),
+    );
+
+    photoInteractor = PhotoInteractorMock();
+
+    when(
+      () => photoInteractor.getPhotos(page: 1),
+    ).thenAnswer(
+      (_) => Future.delayed(answerDelay, () => newPhotos),
+    );
   });
 
   group('Test PhotoListWM', () {
     PhotoListWM setUpWm() {
       return PhotoListWM(
         PhotoListModel(
-          PhotoInteractorMock(),
+          photoInteractor,
         ),
       );
     }
@@ -42,7 +67,7 @@ void main() {
         tester.init();
         expect(wm.photoListState.value?.isLoading, true);
 
-        await Future<void>.delayed(const Duration(seconds: 1));
+        await Future<void>.delayed(answerDelay);
 
         expect(wm.photoListState.value?.isLoading, false);
       },

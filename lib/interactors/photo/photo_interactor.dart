@@ -4,9 +4,6 @@ import 'package:injectable/injectable.dart';
 import 'package:photo_app/api/photo/photo_api.dart';
 import 'package:photo_app/domain/photo_dto.dart';
 import 'package:photo_app/models/photo/mapper/photo_mapper.dart';
-import 'package:flutter/material.dart';
-import 'package:injectable/injectable.dart';
-import 'package:photo_app/domain/photo_dto.dart';
 
 /// Класс для логики работы с фото.
 abstract class PhotoInteractor {
@@ -45,17 +42,24 @@ class PhotoInteractorImpl implements PhotoInteractor {
   }
 }
 
-/// Мок к классу [PhotoInteractor].
-class PhotoInteractorMock implements PhotoInteractor {
-  PhotoInteractorMock();
+/// [PhotoInteractor] без доступа к серверу.
+class LocalPhotoInteractor implements PhotoInteractor {
+  /// Захардкоженая ссылка на фото.
+  static const _sampleImageUrl =
+      'https://images.unsplash.com/photo-1687392946857-96c2b7f94b0d?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3wzMzE5MXwwfDF8YWxsfDJ8fHx8fHwyfHwxNjg3NDM2MjQ4fA&ixlib=rb-4.0.3&q=80&w=400';
 
+  /// Время задержки сервера.
+  static const Duration _answerDelay = Duration(milliseconds: 400);
+
+  /// Возвращает список одинковых фото,
+  /// Ссылки на которые хранятся локально.
   @override
   Future<List<PhotoDto>> getPhotos({required int page}) async {
     /// Генерируем моковые данные.
     final newPhoto = List.generate(
       10,
       (index) => PhotoDto(
-        imageUrl: '',
+        imageUrl: _sampleImageUrl,
         author: 'Author$index',
         likes: index,
         shadowColor: const Color(0xFF262673).withOpacity(0.7),
@@ -64,7 +68,7 @@ class PhotoInteractorMock implements PhotoInteractor {
     );
 
     /// Имитируем задержку сервера.
-    await Future<void>.delayed(const Duration(seconds: 1));
+    await Future<void>.delayed(_answerDelay);
 
     return newPhoto;
   }

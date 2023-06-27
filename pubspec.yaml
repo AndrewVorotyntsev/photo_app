@@ -21,6 +21,7 @@ dependencies:
   injectable: ^2.1.2
   injectable_generator: ^2.1.6
   json_annotation: ^4.8.1
+  mocktail: ^0.3.0
   retrofit: '>=4.0.0 <5.0.0'
 
 dev_dependencies:
