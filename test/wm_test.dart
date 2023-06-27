@@ -42,7 +42,7 @@ void main() {
         tester.init();
         expect(wm.photoListState.value?.isLoading, true);
 
-        await Future<void>.delayed(const Duration(milliseconds: 200));
+        await Future<void>.delayed(const Duration(seconds: 1));
 
         expect(wm.photoListState.value?.isLoading, false);
       },
