@@ -15,7 +15,7 @@ class PhotoDetailsWM extends WidgetModel<PhotoDetailsScreen, PhotoDetailsModel>
   int get likes => model.photo.likes;
 
   @override
-  String get imageUrl => model.photo.imageUrl;
+  ImageProvider get image => model.photo.image;
 
   PhotoDetailsWM(PhotoDetailsModel model) : super(model);
 
@@ -33,8 +33,8 @@ abstract class IPhotoDetailsWidgetModel extends IWidgetModel {
   /// Кол-во лайков.
   int get likes;
 
-  /// Ссылка на изображение.
-  String get imageUrl;
+  /// Изображение.
+  ImageProvider get image;
 
   /// Действие по нажатию назад.
   void onBackTap();

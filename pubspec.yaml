@@ -43,3 +43,6 @@ flutter:
         - asset: fonts/Manrope-Regular.ttf
 
   uses-material-design: true
+
+  assets:
+    - assets/default_photo.jpeg

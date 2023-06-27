@@ -20,7 +20,7 @@ void _configureDependencies() {
   final newPhotos = List<PhotoDto>.generate(
     10,
     (index) => PhotoDto(
-      imageUrl: '',
+      image: const AssetImage('assets/default_photo.jpeg'),
       author: 'Author$index',
       likes: index,
       shadowColor: const Color(0xFF262673).withOpacity(0.7),
@@ -32,5 +32,5 @@ void _configureDependencies() {
   ).thenAnswer(
     (_) => Future(() => newPhotos),
   );
-  getIt.registerSingleton<PhotoInteractor>(PhotoInteractorMock());
+  getIt.registerSingleton<PhotoInteractor>(photoInteractor);
 }

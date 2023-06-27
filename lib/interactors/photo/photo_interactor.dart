@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:injectable/injectable.dart';
@@ -16,6 +17,9 @@ abstract class PhotoInteractor {
 /// Имплементация к классу [PhotoInteractor].
 @Injectable(as: PhotoInteractor)
 class PhotoInteractorImpl implements PhotoInteractor {
+  // TODO(AndrewVorotyntsev): указать АПИ Ключ.
+  static const _clientId = '';
+
   final PhotoApi _photoApi;
 
   PhotoInteractorImpl(this._photoApi);
@@ -25,8 +29,7 @@ class PhotoInteractorImpl implements PhotoInteractor {
     try {
       final photoResponse = await _photoApi.getPhotos(
         page: page,
-        // TODO(AndrewVorotyntsev): указать АПИ Ключ.
-        clientId: 'clientId',
+        clientId: _clientId,
       );
       final photoDomains = mapListPhoto(photoResponse);
       return photoDomains;
@@ -59,7 +62,7 @@ class LocalPhotoInteractor implements PhotoInteractor {
     final newPhoto = List.generate(
       10,
       (index) => PhotoDto(
-        imageUrl: _sampleImageUrl,
+        image: CachedNetworkImageProvider(_sampleImageUrl),
         author: 'Author$index',
         likes: index,
         shadowColor: const Color(0xFF262673).withOpacity(0.7),

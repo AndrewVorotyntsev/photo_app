@@ -17,7 +17,7 @@ void main() {
       newPhotos = List.generate(
         10,
         (index) => PhotoDto(
-          imageUrl: '',
+          image: const AssetImage('assets/default_photo.jpeg'),
           author: 'Author$index',
           likes: index,
           shadowColor: const Color(0xFF262673).withOpacity(0.7),
@@ -45,8 +45,28 @@ void main() {
 
   group('List model unit test', () {
     late final PhotoListModel photoListModel;
+    late final PhotoInteractor photoInteractor;
+    late final List<PhotoDto> newPhotos;
     setUp(() {
-      photoListModel = PhotoListModel(PhotoInteractorMock());
+      newPhotos = List.generate(
+        10,
+        (index) => PhotoDto(
+          image: const AssetImage('assets/default_photo.jpeg'),
+          author: 'Author$index',
+          likes: index,
+          shadowColor: const Color(0xFF262673).withOpacity(0.7),
+          blurHash: 'LC7-g_NzImwHS#aHxJb|MtkanMs?',
+        ),
+      );
+
+      photoInteractor = PhotoInteractorMock();
+
+      when(
+        () => photoInteractor.getPhotos(page: 1),
+      ).thenAnswer(
+        (_) => Future(() => newPhotos),
+      );
+      photoListModel = PhotoListModel(photoInteractor);
     });
 
     test(
@@ -63,7 +83,7 @@ void main() {
     late PhotoDto photo;
     setUp(() {
       photo = PhotoDto(
-        imageUrl: '',
+        image: const AssetImage('assets/default_photo.jpeg'),
         author: 'Author',
         likes: 1,
         shadowColor: Colors.grey,

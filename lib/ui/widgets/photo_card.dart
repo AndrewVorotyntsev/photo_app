@@ -1,4 +1,3 @@
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_blurhash/flutter_blurhash.dart';
 import 'package:photo_app/domain/photo_dto.dart';
@@ -25,7 +24,7 @@ class PhotoCard extends StatelessWidget {
       children: [
         if (photo.blurHash != null) BlurPlaceholder(blurHash: photo.blurHash!),
         Hero(
-          tag: photo.imageUrl,
+          tag: photo.image.hashCode,
           child: Container(
             decoration: BoxDecoration(
               borderRadius: const BorderRadius.all(
@@ -40,13 +39,10 @@ class PhotoCard extends StatelessWidget {
                   offset: const Offset(0, 8),
                 ),
               ],
-              color: (photo.imageUrl == '') ? Colors.red : Colors.transparent,
-              image: (photo.imageUrl != '')
-                  ? DecorationImage(
-                      image: CachedNetworkImageProvider(photo.imageUrl),
-                      fit: BoxFit.cover,
-                    )
-                  : null,
+              image: DecorationImage(
+                image: photo.image,
+                fit: BoxFit.cover,
+              ),
             ),
             clipBehavior: Clip.hardEdge,
             child: Material(

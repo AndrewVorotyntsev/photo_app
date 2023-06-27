@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:photo_app/domain/photo_dto.dart';
 import 'package:photo_app/models/photo/photo_response_model.dart';
 import 'package:photo_app/utils/color_util.dart';
@@ -13,7 +14,7 @@ PhotoDto? mapPhoto(PhotoResponseModel response) {
     final shadowColor = ColorUtil.fromHex(shadow);
 
     return PhotoDto(
-      imageUrl: imageUrl,
+      image: CachedNetworkImageProvider(imageUrl),
       author: author,
       likes: likes,
       shadowColor: shadowColor,

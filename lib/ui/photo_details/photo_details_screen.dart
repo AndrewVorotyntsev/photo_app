@@ -1,4 +1,3 @@
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:elementary/elementary.dart';
 import 'package:flutter/material.dart';
 import 'package:photo_app/domain/photo_dto.dart';
@@ -29,18 +28,14 @@ class PhotoDetailsScreen extends ElementaryWidget<IPhotoDetailsWidgetModel> {
             Stack(
               children: [
                 Hero(
-                  tag: wm.imageUrl,
+                  tag: wm.image.hashCode,
                   child: Container(
                     height: 371,
                     decoration: BoxDecoration(
-                      color:
-                          wm.imageUrl == '' ? Colors.red : Colors.transparent,
-                      image: (wm.imageUrl != '')
-                          ? DecorationImage(
-                              image: CachedNetworkImageProvider(wm.imageUrl),
-                              fit: BoxFit.cover,
-                            )
-                          : null,
+                      image: DecorationImage(
+                        image: wm.image,
+                        fit: BoxFit.cover,
+                      ),
                       borderRadius: const BorderRadius.only(
                         bottomLeft: Radius.circular(32),
                         bottomRight: Radius.circular(32),
