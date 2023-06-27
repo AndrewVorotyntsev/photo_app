@@ -70,6 +70,8 @@ void main() {
         await Future<void>.delayed(answerDelay);
 
         expect(wm.photoListState.value?.isLoading, false);
+        expect(wm.photoListState.value?.error, null);
+        expect(wm.photoListState.value?.data, newPhotos);
       },
     );
   });
