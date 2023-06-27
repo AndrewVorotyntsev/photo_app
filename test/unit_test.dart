@@ -4,6 +4,7 @@ import 'package:photo_app/domain/photo_dto.dart';
 import 'package:photo_app/interactors/photo/photo_interactor.dart';
 import 'package:photo_app/ui/photo_details/photo_details_model.dart';
 import 'package:photo_app/ui/photo_list/photo_list_model.dart';
+import 'package:photo_app/utils/color_util.dart';
 
 void main() {
   group('Interactor unit test', () {
@@ -51,6 +52,13 @@ void main() {
 
     test('Details photo from model', () async {
       expect(photoDetailsModel.photo, photo);
+    });
+  });
+
+  group('Color Util Unit test', () {
+    test('Convert hex format String to Material Color', () {
+      const colorHexString = '#60544D';
+      expect(ColorUtil.fromHex(colorHexString), const Color(0xFF60544D));
     });
   });
 }
