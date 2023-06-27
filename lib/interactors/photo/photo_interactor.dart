@@ -4,6 +4,9 @@ import 'package:injectable/injectable.dart';
 import 'package:photo_app/api/photo/photo_api.dart';
 import 'package:photo_app/domain/photo_dto.dart';
 import 'package:photo_app/models/photo/mapper/photo_mapper.dart';
+import 'package:flutter/material.dart';
+import 'package:injectable/injectable.dart';
+import 'package:photo_app/domain/photo_dto.dart';
 
 /// Класс для логики работы с фото.
 abstract class PhotoInteractor {
