@@ -54,7 +54,7 @@ class LocalPhotoInteractor implements PhotoInteractor {
   /// Время задержки сервера.
   static const Duration _answerDelay = Duration(milliseconds: 400);
 
-  /// Возвращает список одинковых фото,
+  /// Возвращает список одинаковых фото,
   /// Ссылки на которые хранятся локально.
   @override
   Future<List<PhotoDto>> getPhotos({required int page}) async {
