@@ -62,7 +62,7 @@ class LocalPhotoInteractor implements PhotoInteractor {
     final newPhoto = List.generate(
       10,
       (index) => PhotoDto(
-        image: CachedNetworkImageProvider(_sampleImageUrl),
+        image: const CachedNetworkImageProvider(_sampleImageUrl),
         author: 'Author$index',
         likes: index,
         shadowColor: const Color(0xFF262673).withOpacity(0.7),

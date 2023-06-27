@@ -11,7 +11,7 @@ void main() {
 
   setUp(() {
     photo = PhotoDto(
-      image: AssetImage('assets/default_photo.jpeg'),
+      image: const AssetImage('assets/default_photo.jpeg'),
       author: 'Author',
       likes: 1,
       shadowColor: Colors.grey,

@@ -21,7 +21,7 @@ void main() {
 
   setUp(() async {
     photo = PhotoDto(
-      image: AssetImage('assets/default_photo.jpeg'),
+      image: const AssetImage('assets/default_photo.jpeg'),
       author: 'Author',
       likes: 1,
       shadowColor: Colors.grey,
@@ -30,7 +30,7 @@ void main() {
     newPhotos = List.generate(
       10,
       (index) => PhotoDto(
-        image: AssetImage('assets/default_photo.jpeg'),
+        image: const AssetImage('assets/default_photo.jpeg'),
         author: 'Author$index',
         likes: index,
         shadowColor: const Color(0xFF262673).withOpacity(0.7),
