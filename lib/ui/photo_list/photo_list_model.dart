@@ -9,6 +9,6 @@ class PhotoListModel extends ElementaryModel {
   PhotoListModel(this._photoInteractor);
 
   Future<List<PhotoDto>> getPhoto({required int page}) async {
-    return photoInteractor.getPhotos(page: page);
+    return _photoInteractor.getPhotos(page: page);
   }
 }
