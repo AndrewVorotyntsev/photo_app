@@ -1,4 +1,6 @@
 class AppStrings {
   static const photos = 'Photos';
-  static const likes = 'likes';
+  static const backLabel = '< Back';
+
+  static String like(int qty) => qty == 1 ? '$qty like' : '$qty likes';
 }
