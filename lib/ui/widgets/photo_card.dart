@@ -23,60 +23,6 @@ class PhotoCard extends StatelessWidget {
       // Для того, чтобы изображение заняло всю карточку.
       fit: StackFit.expand,
       children: [
-        BlurPlaceholder(blurHash: photo.blurHash),
-        Hero(
-          tag: photo.imageUrl,
-          child: Container(
-            decoration: BoxDecoration(
-              borderRadius: const BorderRadius.all(
-                Radius.circular(
-                  20,
-                ),
-              ),
-              boxShadow: [
-                BoxShadow(
-                  color: photo.shadowColor,
-                  blurRadius: 32,
-                  offset: const Offset(0, 8),
-                ),
-              ],
-              image: DecorationImage(
-                image: NetworkImage(photo.imageUrl),
-                fit: BoxFit.fill,
-              ),
-            ),
-            clipBehavior: Clip.hardEdge,
-            child: Material(
-              type: MaterialType.transparency,
-              clipBehavior: Clip.hardEdge,
-              child: InkWell(
-                onTap: onCardTap,
-                child: Padding(
-                  padding: const EdgeInsets.only(left: 16),
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.end,
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(
-                        photo.author,
-                        style: AppTextStyles.cardTitleTextStyle,
-                      ),
-                      Text(
-                        AppStrings.like(photo.likes),
-                        style: AppTextStyles.cardSubtitleTextStyle,
-                      ),
-                      const SizedBox(
-                        height: 10,
-                      ),
-                    ],
-                  ),
-                ),
-              ),
-    return Stack(
-      alignment: Alignment.centerLeft,
-      // Для того, чтобы изображение заняло всю карточку.
-      fit: StackFit.expand,
-      children: [
         if (photo.blurHash != null) BlurPlaceholder(blurHash: photo.blurHash!),
         Hero(
           tag: photo.imageUrl,
