@@ -22,9 +22,9 @@ class PhotoCard extends StatelessWidget {
       // Для того, чтобы изображение заняло всю карточку.
       fit: StackFit.expand,
       children: [
-        BlurPlaceholder(blurHash: photo.blurHash),
+        if (photo.blurHash != null) BlurPlaceholder(blurHash: photo.blurHash!),
         Hero(
-          tag: photo.imageUrl,
+          tag: photo.image.hashCode,
           child: Container(
             decoration: BoxDecoration(
               borderRadius: const BorderRadius.all(
@@ -40,8 +40,8 @@ class PhotoCard extends StatelessWidget {
                 ),
               ],
               image: DecorationImage(
-                image: NetworkImage(photo.imageUrl),
-                fit: BoxFit.fill,
+                image: photo.image,
+                fit: BoxFit.cover,
               ),
             ),
             clipBehavior: Clip.hardEdge,

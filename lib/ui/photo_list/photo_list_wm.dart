@@ -6,6 +6,7 @@ import 'package:photo_app/interactors/photo/photo_interactor.dart';
 import 'package:photo_app/ui/photo_details/photo_details_screen.dart';
 import 'package:photo_app/ui/photo_list/photo_list_model.dart';
 import 'package:photo_app/ui/photo_list/photo_list_screen.dart';
+import 'package:photo_app/ui/widgets/snack_bars.dart';
 
 /// Имплементация и реализация Виджет модели.
 class PhotoListWM extends WidgetModel<PhotoListScreen, PhotoListModel>
@@ -18,6 +19,12 @@ class PhotoListWM extends WidgetModel<PhotoListScreen, PhotoListModel>
   /// Контроллер для списка фото.
   @override
   late ScrollController photoScrollController;
+
+  bool _isTotalLoaded = false;
+
+  int _currentPage = 1;
+
+  List<PhotoDto>? get _photoData => photoListState.value?.data;
 
   PhotoListWM(PhotoListModel model) : super(model);
 
@@ -41,9 +48,15 @@ class PhotoListWM extends WidgetModel<PhotoListScreen, PhotoListModel>
     Navigator.of(context).push(PhotoDetailsScreenRoute(photo: photo));
   }
 
+  @override
+  void refreshScreen() {
+    _loadPhoto();
+  }
+
   /// Обработчик скролла списка фото.
   void _photoScrollListener() {
     if (photoScrollController.position.extentAfter <= 0 &&
+        _isTotalLoaded != true &&
         photoListState.value?.isLoading != true) {
       _loadPhoto();
     }
@@ -54,13 +67,28 @@ class PhotoListWM extends WidgetModel<PhotoListScreen, PhotoListModel>
     photoListState.loading(previousData);
 
     try {
-      final newPhotos = await model.getPhoto();
-      photoListState.content([
-        ...previousData,
-        ...newPhotos,
-      ]);
+      final newPhotos = await model.getPhoto(page: _currentPage);
+      if (newPhotos.isEmpty) {
+        _isTotalLoaded = true;
+        photoListState.content(previousData);
+        return;
+      } else {
+        photoListState.content([
+          ...previousData,
+          ...newPhotos,
+        ]);
+        _currentPage++;
+      }
     } on Exception catch (e) {
-      photoListState.error(e, previousData);
+      if (_photoData?.isEmpty ?? false) {
+        // Отправляем ошибку, чтобы перерисовать экран.
+        photoListState.error(e, previousData);
+      } else {
+        // Показываем пользователю снэкбар.
+        ScaffoldMessenger.of(context).showSnackBar(errorLoadingSnackBar);
+        // Убидаем индикатор загрузки.
+        photoListState.content(previousData);
+      }
     }
   }
 }
@@ -75,6 +103,9 @@ abstract class IPhotoListWM extends IWidgetModel {
 
   /// Обработчик нажатия на карточку с фото.
   void onPhotoCardTap(PhotoDto photo);
+
+  /// Обновить экран.
+  void refreshScreen();
 }
 
 PhotoListWM defaultAppWidgetModelFactory(BuildContext _) {

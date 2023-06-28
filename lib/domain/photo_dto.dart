@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 
 /// Доменная модель фотографии.
 class PhotoDto {
-  /// Сссылка на изображение.
-  final String imageUrl;
+  /// Изображение.
+  final ImageProvider image;
 
   /// Имя автора.
   final String author;
@@ -15,13 +15,13 @@ class PhotoDto {
   final Color shadowColor;
 
   /// Хэш блюра на основе фото.
-  final String blurHash;
+  final String? blurHash;
 
   PhotoDto({
-    required this.imageUrl,
+    required this.image,
     required this.author,
     required this.likes,
     required this.shadowColor,
-    required this.blurHash,
+    this.blurHash,
   });
 }

@@ -28,13 +28,13 @@ class PhotoDetailsScreen extends ElementaryWidget<IPhotoDetailsWidgetModel> {
             Stack(
               children: [
                 Hero(
-                  tag: wm.photo.imageUrl,
+                  tag: wm.image.hashCode,
                   child: Container(
                     height: 371,
                     decoration: BoxDecoration(
                       image: DecorationImage(
-                        image: NetworkImage(wm.photo.imageUrl),
-                        fit: BoxFit.fill,
+                        image: wm.image,
+                        fit: BoxFit.cover,
                       ),
                       borderRadius: const BorderRadius.only(
                         bottomLeft: Radius.circular(32),
